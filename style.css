@@ -1,6 +1,155 @@
-/* Add styles here */
-img{
-    width: 100%; 
-    max-width: 250px; 
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+}
+
+header {
+    margin: 0;
+    background-color: lightblue;
+    height: 4em;
+    display: flex;
+    align-items: center;
+    position: fixed;
+    width: 100%;
+    z-index: 100;
+}
+
+/* NAVBAR */
+.navbar {
+    display: flex;
+    align-items: center;
+    padding: 1em;
+}
+
+.logo-container {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.logo {
+    height: 50px;
+}
+
+.inicio-btn {
+    font-size: 1.2em;
+    border-radius: 10px;
+    border: none;
+    margin-left: 1em;
+    background-color: white;
+    cursor: pointer;
+}
+
+/* SECCIÓN PRINCIPAL */
+.main-section {
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding-top: 5em; /* Para compensar el header fijo */
+}
+
+.titulo {
+    text-align: center;
+    width: 100%;
+}
+
+/* CONTENIDO */
+.contenido {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.aside figure {
+    margin-bottom: 1em;
+}
+
+.aside figcaption {
+    text-align: center;
+    font-size: 0.9em;
+}
+
+.historia {
+    flex: 1;
+    max-width: 600px;
+    text-align: justify;
+    line-height: 1.6;
+}
+
+/* EXTRA */
+.extra {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2em;
+}
+
+.imagen-final,
+.img-prueba {
+    width: 100%;
+    max-width: 250px;
     height: auto;
+}
+
+/* Carrusel */
+.back-carousel {
+    position: relative;
+    width: 90%;
+    height: auto;
+    overflow: hidden;
+}
+
+.carousel {
+    position: relative;
+    max-width: 600px;
+    margin: 50px auto;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.carousel-images {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    width: 100%;
+}
+
+.carousel-images img {
+    width: 100%;
+    flex-shrink: 0;
+    border-radius: 10px;
+}
+
+button.prev,
+button.next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    border: none;
+    color: white;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 18px;
+    border-radius: 50%;
+}
+
+button.prev {
+    left: 10px;
+}
+
+button.next {
+    right: 10px;
+}
+
+button:hover {
+    background-color: rgba(0, 0, 0, 0.7);
 }
