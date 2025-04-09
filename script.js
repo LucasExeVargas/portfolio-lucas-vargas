@@ -1,23 +1,20 @@
-const imagesContainer = document.querySelector('.carousel-images');
-const images = document.querySelectorAll('.carousel-images img');
-const prevButton = document.querySelector('.prev');
-const nextButton = document.querySelector('.next');
+document.addEventListener('DOMContentLoaded', () => {
+    const checkbox = document.getElementById('checkbox');
+    const body = document.body;
 
-let index = 0;
+    // Activar tema claro al inicio
+    body.classList.add('light-theme');
+    checkbox.checked = true;
 
-function showImage(index) {
-    const offset = -index * 100;
-    imagesContainer.style.transform = `translateX(${offset}%)`;
-}
-
-prevButton.addEventListener('click', () => {
-    index = (index > 0) ? index - 1 : images.length - 1;
-    showImage(index);
+    checkbox.addEventListener('change', () => {
+        if (checkbox.checked) {
+            body.classList.remove('dark-theme');
+            body.classList.add('light-theme');
+            
+        } else {
+            
+            body.classList.remove('light-theme');
+            body.classList.add('dark-theme');
+        }
+    });
 });
-
-nextButton.addEventListener('click', () => {
-    index = (index < images.length - 1) ? index + 1 : 0;
-    showImage(index);
-});
-
-showImage(index);
