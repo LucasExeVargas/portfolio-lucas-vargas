@@ -19,6 +19,7 @@ body.dark-theme {
 
 header {
     margin: 0;
+    margin-top:2em;
     background-color: transparent;
     height: 4em;
     display: flex;
@@ -33,6 +34,7 @@ header {
     display: flex;
     gap: 10px;
     padding: 0;
+    margin: 0fs-3;
 }
 
 .navbar {
@@ -169,3 +171,6 @@ header {
   .switch input:checked ~ .slider .cloud {
     opacity: 1;
   }
+.img_yo{
+  width: 20rem;
+}
