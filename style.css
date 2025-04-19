@@ -48,7 +48,7 @@ header {
   color: black;
 }
 .text-nav{
-  margin: 0;
+  margin: 0 1rem 0 1rem;
 }
 .text-nav-dark {
   color: white;
@@ -173,6 +173,12 @@ header {
   .switch input:checked ~ .slider .cloud {
     opacity: 1;
   }
-.img_yo{
+.img-yo{
   width: 20rem;
+}
+.img-ar{
+  width: 50px;
+}
+.figure-nav{
+  margin: 0;
 }
