@@ -1,41 +1,42 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const checkbox = document.getElementById('checkbox');
+    const checkboxes = document.querySelectorAll('#checkbox'); // Ahora selecciona ambos
     const body = document.body;
     const textElements = document.querySelectorAll('.text-nav');
-    const img = document.querySelector('.img-yo'); // <- Corrección aquí
+    const img = document.querySelector('.img-yo');
 
     // Activar tema claro al inicio
     body.classList.add('light-theme');
-    checkbox.checked = true;
-    img.src = 'img/yo-dia.svg'; // Imagen para tema claro
-
-    // Aplicar clases de texto según el tema inicial
+    img.src = 'img/yo-dia.svg';
     textElements.forEach(el => {
         el.classList.add('text-nav-light');
         el.classList.remove('text-nav-dark');
     });
 
-    checkbox.addEventListener('change', () => {
-        if (checkbox.checked) {
-            body.classList.remove('dark-theme');
-            body.classList.add('light-theme');
+    checkboxes.forEach(checkbox => {
+        checkbox.checked = true;
 
-            img.src = 'img/yo-dia.svg'; // Imagen para tema claro
+        checkbox.addEventListener('change', () => {
+            const isLight = checkbox.checked;
 
-            textElements.forEach(el => {
-                el.classList.remove('text-nav-dark');
-                el.classList.add('text-nav-light');
-            });
-        } else {
-            body.classList.remove('light-theme');
-            body.classList.add('dark-theme');
+            checkboxes.forEach(cb => cb.checked = isLight); // Sincroniza ambos switches
 
-            img.src = 'img/yo-noche.svg'; // Imagen para tema oscuro
-
-            textElements.forEach(el => {
-                el.classList.remove('text-nav-light');
-                el.classList.add('text-nav-dark');
-            });
-        }
+            if (isLight) {
+                body.classList.remove('dark-theme');
+                body.classList.add('light-theme');
+                img.src = 'img/yo-dia.svg';
+                textElements.forEach(el => {
+                    el.classList.remove('text-nav-dark');
+                    el.classList.add('text-nav-light');
+                });
+            } else {
+                body.classList.remove('light-theme');
+                body.classList.add('dark-theme');
+                img.src = 'img/yo-noche.svg';
+                textElements.forEach(el => {
+                    el.classList.remove('text-nav-light');
+                    el.classList.add('text-nav-dark');
+                });
+            }
+        });
     });
 });
