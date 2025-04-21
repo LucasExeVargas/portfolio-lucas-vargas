@@ -105,23 +105,23 @@
                 <img src="img/yo-dia.svg" class="img-yo" alt="Descripción">
               </figure>
             </div>
-            <div class="col-md-6 text-center">
-              
+            <div class="col-md-6 text-center d-flex flex-column justify-content-md-center align-items-md-center min-vh-md-100">
               <div class="container">
-                <div class="col-md-8">
-
-                  <div class="row">
-                    <div>
-                      <p class="text-center fs-4 fw-bold text-nav text-nav-dark">HOLA, ME LLAMO</p>
-                      <p class="text-center fs-3 fw-bold text-nav text-nav-dark">LUCAS EXEQUIEL VARGAS</p>
+                <div class="row justify-content-center">
+                  <div class="col-md-8">
+                    <div class="row">
+                      <div>
+                        <p class="text-center fs-4 fw-bold text-nav text-nav-dark">HOLA, ME LLAMO</p>
+                        <p class="text-center fs-3 fw-bold text-nav text-nav-dark">LUCAS EXEQUIEL VARGAS</p>
+                      </div>
                     </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-6" >
-                      <button class="button type1 custom-animated-btn"></button>
-                    </div>
-                    <div class="col-6">
-                      <button class="button type1 custom-animated-btn"></button>
+                    <div class="row">
+                      <div class="col-6">
+                        <button class="button type1 custom-animated-btn btn-cv"></button>
+                      </div>
+                      <div class="col-6">
+                        <button class="button type1 custom-animated-btn btn-info"></button>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -132,10 +132,10 @@
       </section>
     <section class="container">
       <div id="carouselExampleCaptions" class="carousel slide">
-        <div class="carousel-indicators"<>
+        <div class="carousel-indicators">
           <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
-          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"  onclick="descargarPDF()"></button>
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3" onclick="descargarPDF()"></button>
         </div>
         <div class="carousel-inner">
           <div class="carousel-item active">
@@ -171,7 +171,35 @@
       </div>
     </section>
     <section>
-      <h1>HOLA</h1>
+      
+        <div class="container">
+          <div class="row">
+            <div class="col-md-6 text-center d-flex flex-column justify-content-md-center align-items-md-center min-vh-md-100">
+              <div class="card card-light">
+                <div class="head head-light"><p class="text-nav text-nav-dark">Window</p></div>
+                <div class="content content-light">
+                  <p class="text-nav text-nav-dark">
+                  This is a neobrutalist-style window with a button and space for any content
+                  you want!
+                  </p>
+
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 text-center d-flex flex-column justify-content-md-center align-items-md-center min-vh-md-100">
+              <div class="card card-light">
+                <div class="head head-light"><p class="text-nav text-nav-dark">Window</p></div>
+                <div class="content content-light">
+                  <p class="text-nav text-nav-dark">
+                  This is a neobrutalist-style window with a button and space for any content
+                  you want!
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      
     </section>
     <script src="script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script>
