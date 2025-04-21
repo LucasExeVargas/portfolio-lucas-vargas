@@ -184,3 +184,102 @@ header {
 .figure-nav{
   margin: 0;
 }
+.carousel-item img {
+  max-width: 40%; /* Ajusta el tamaño a tu gusto */
+  margin: 0 auto 9rem auto; /* Centra la imagen horizontalmente */
+}
+
+.custom-animated-btn.button { 
+  height: 50px;
+  width: 150px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.5s ease-in-out;
+}
+
+.custom-animated-btn.button:hover {
+  box-shadow: .5px .5px 150px #252525;
+}
+
+.custom-animated-btn-light.type1::after {
+  content: "Gracias";
+  height: 50px;
+  width: 150px;
+  background-color: #ffffff;
+  color: #000000;
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  transform: translateY(50px);
+  font-size: 1.2rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.5s ease-in-out;
+}
+
+.custom-animated-btn-light.type1::before {
+  content: "Hover Me";
+  height: 50px;
+  width: 150px;
+  background-color: #000000;
+  color: #ffffff;
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  transform: translateY(0px) scale(1.2);
+  font-size: 1.2rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.5s ease-in-out;
+}
+
+.custom-animated-btn.type1:hover::after {
+  transform: translateY(0) scale(1.2);
+}
+
+.custom-animated-btn.type1:hover::before {
+  transform: translateY(-50px) scale(0) rotate(120deg);
+}
+
+.custom-animated-btn-dark.type1::after {
+  content: "Gracias";
+  height: 50px;
+  width: 150px;
+  background-color: #000000;
+  color: #ffffff;
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  transform: translateY(50px);
+  font-size: 1.2rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.5s ease-in-out;
+}
+
+.custom-animated-btn-dark.type1::before {
+  content: "Hover Me";
+  height: 50px;
+  width: 150px;
+  background-color: #ffffff;
+  color: #000000;
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  transform: translateY(0px) scale(1.2);
+  font-size: 1.2rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.5s ease-in-out;
+}
