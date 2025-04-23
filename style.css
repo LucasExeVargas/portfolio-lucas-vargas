@@ -352,3 +352,19 @@ header {
   transform: translate(-6px, -6px); /* Corrected the property here */
   box-shadow: 16px 16px 0 #ffffff; /* Optional: added an effect on hover */
 }
+.title-form{
+  font: 2rem;
+  font-weight:400 ;
+  text-align: center;
+}
+.lable-text{
+  margin: 20px 0 2px;
+}
+.input{
+  width: calc(100% - 30px);
+  padding: 5px;
+  border: 1px solid #000;
+  border: 3px;
+  vertical-align: middle;
+  background-color: #f7f7f7;
+}
