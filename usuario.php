@@ -29,12 +29,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['submit'])) {
 
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="form.css" />
   <title>Formulario con PHP + EmailJS</title>
 </head>
+
 <body>
 
   <form id="contact-form" class="form">
@@ -81,32 +83,33 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['submit'])) {
       formData.append('submit', '1');
 
       fetch(window.location.href, {
-        method: 'POST',
-        body: formData
-      })
-      .then(res => res.text())
-      .then(res => {
-        console.log(res);
-        // Solo enviar email si se insertó correctamente
-        if (res.includes("Usuario agregado correctamente")) {
-          emailjs.sendForm('service_k1ewwe6', 'template_yf8abgr', form)
-            .then(() => {
-              alert('Usuario agregado y correo enviado ✅');
-              form.reset();
-            }, (error) => {
-              alert('Usuario agregado, pero error al enviar correo ❌');
-              console.error('EmailJS error:', error);
-            });
-        } else {
-          alert(res);
-        }
-      })
-      .catch(error => {
-        console.error('Error al enviar a PHP:', error);
-        alert("Error al procesar el formulario");
-      });
+          method: 'POST',
+          body: formData
+        })
+        .then(res => res.text())
+        .then(res => {
+          console.log(res);
+          // Solo enviar email si se insertó correctamente
+          if (res.includes("Usuario agregado correctamente")) {
+            emailjs.sendForm('service_k1ewwe6', 'template_yf8abgr', form)
+              .then(() => {
+                alert('Usuario agregado y correo enviado ✅');
+                form.reset();
+              }, (error) => {
+                alert('Usuario agregado, pero error al enviar correo ❌');
+                console.error('EmailJS error:', error);
+              });
+          } else {
+            alert(res);
+          }
+        })
+        .catch(error => {
+          console.error('Error al enviar a PHP:', error);
+          alert("Error al procesar el formulario");
+        });
     });
   </script>
 
 </body>
+
 </html>
