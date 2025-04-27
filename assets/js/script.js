@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Activar tema claro al inicio
     body.classList.add('light-theme');
-    img.src = 'img/yo-dia.svg';
+    img.src = '/assets/img/yo-dia.svg';
     carousel.className = 'carousel carousel-dark slide';
     textElements.forEach(el => {
         el.classList.add('text-nav-light');
@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (isLight) {
                 body.classList.remove('dark-theme');
                 body.classList.add('light-theme');
-                img.src = 'img/yo-dia.svg';
+                img.src = '/assets/img/yo-dia.svg';
                 carousel.className = 'carousel carousel-dark slide';
                 textElements.forEach(el => {
                     el.classList.remove('text-nav-dark');
@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 body.classList.remove('light-theme');
                 body.classList.add('dark-theme');
-                img.src = 'img/yo-noche.svg';
+                img.src = '/assets/img/yo-noche.svg';
                 carousel.className = 'carousel slide';
                 textElements.forEach(el => {
                     el.classList.remove('text-nav-light');
@@ -103,7 +103,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (btnCV) {
         btnCV.addEventListener('click', () => {
             const link = document.createElement('a');
-            link.href = 'download\\CV-LucasVargas.pdf'; // Reemplaza con la ruta real de tu PDF
+            link.href = 'assets\download\CV-LucasVargas.pdf'; // Reemplaza con la ruta real de tu PDF
             link.download = 'Lucas_Vargas_CV.pdf';
             document.body.appendChild(link);
             link.click();

@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio Lucas Vargas</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio Lucas Vargas</title>
+  <link rel="stylesheet" href="/assets/styles/style.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
 </head>
+
 <body>
   <div>
 
@@ -22,19 +24,22 @@
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item">
                 <a href="https://getbootstrap.com/docs/5.3/components/navbar/" class="select-nav text-decoration-none">
-                  <p class="text-nav text-nav-dark fs-3 fw-medium m-0">Sobre mí</p></a>
+                  <p class="text-nav text-nav-dark fs-3 fw-medium m-0">Sobre mí</p>
+                </a>
               </li>
               <li class="nav-item">
                 <a href="#" class="nav-link select-nav text-decoration-none">
-                  <p class="text-nav text-nav-dark fs-3 fw-medium m-0">Proyectos</p></a>
+                  <p class="text-nav text-nav-dark fs-3 fw-medium m-0">Proyectos</p>
+                </a>
               </li>
               <li class="nav-item">
                 <a href="#" class="nav-link select-nav text-decoration-none">
-                  <p class="text-nav text-nav-dark fs-3 fw-medium m-0">Contactos</p></a>
+                  <p class="text-nav text-nav-dark fs-3 fw-medium m-0">Contactos</p>
+                </a>
               </li>
             </ul>
             <div style="padding-left: 1rem;">
-              <label class="switch" >
+              <label class="switch">
                 <input checked="true" id="checkbox" type="checkbox" />
                 <span class="slider">
                   <div class="star star_1"></div>
@@ -50,33 +55,36 @@
           </div>
         </div>
       </nav>
-    
+
     </div>
-  
+
     <!-- Desktop Header -->
     <nav class="navbar d-none d-md-flex">
       <div class="header-container  align-items-center justify-content-between">
-  
+
         <!-- Logo -->
         <div class="column-1">
           <figure class="figure-nav m-0">
-            <img src="img/logo-ar.svg" class="img-ar" alt="Logo AR">
+            <img src="/assets/img/logo-ar.svg" class="img-ar" alt="Logo AR">
           </figure>
         </div>
-  
+
         <!-- Navigation Links -->
         <ul class="nav-list d-flex list-unstyled mb-0">
           <li><a href="#" class="select-nav text-decoration-none">
-            <p class="text-nav text-nav-dark fs-3 fw-medium m-0">Sobre mí</p></a>
+              <p class="text-nav text-nav-dark fs-3 fw-medium m-0">Sobre mí</p>
+            </a>
           </li>
           <li><a href="#" class="select-nav text-decoration-none">
-            <p class="text-nav text-nav-dark fs-3 fw-medium m-0">Proyectos</p></a>
+              <p class="text-nav text-nav-dark fs-3 fw-medium m-0">Proyectos</p>
+            </a>
           </li>
           <li><a href="#" class="select-nav text-decoration-none">
-            <p class="text-nav text-nav-dark fs-3 fw-medium m-0">Contacto</p></a>
+              <p class="text-nav text-nav-dark fs-3 fw-medium m-0">Contacto</p>
+            </a>
           </li>
         </ul>
-  
+
         <!-- Dark Mode Switch -->
         <div class="column-3">
           <label class="switch">
@@ -102,7 +110,7 @@
         </div>
         <div class="col-md-3 text-center">
           <figure>
-            <img src="img/yo-dia.svg" class="img-yo" alt="Descripción">
+            <img src="/assets/img/yo-dia.svg" class="img-yo" alt="Descripción">
           </figure>
         </div>
         <div class="col-md-6 text-center d-flex flex-column justify-content-md-center align-items-md-center min-vh-md-100">
@@ -164,26 +172,26 @@
     <div id="carouselExampleCaptions" class="carousel slide">
       <div class="carousel-indicators">
         <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"  onclick="descargarPDF()"></button>
+        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2" onclick="descargarPDF()"></button>
         <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3" onclick="descargarPDF()"></button>
       </div>
       <div class="carousel-inner">
         <div class="carousel-item active">
-          <img src="img/logo-ar.svg" class="d-block w-100" alt="...">
+          <img src="/assets/img/logo-ar.svg" class="d-block w-100" alt="...">
           <div class="carousel-caption d-md-block">
             <h5>First slide label</h5>
             <p>Some representative placeholder content for the first slide.</p>
           </div>
         </div>
         <div class="carousel-item ">
-          <img src="img/yo-dia.svg" class="d-block w-100" alt="...">
+          <img src="/assets/img/yo-dia.svg" class="d-block w-100" alt="...">
           <div class="carousel-caption d-md-block">
             <h5>Second slide label</h5>
             <p>Some representative placeholder content for the second slide.</p>
           </div>
         </div>
         <div class="carousel-item">
-          <img src="img/yo-noche.svg" class="d-block w-100" alt="...">
+          <img src="/assets/img/yo-noche.svg" class="d-block w-100" alt="...">
           <div class="carousel-caption d-md-block">
             <h5>Third slide label</h5>
             <p>Some representative placeholder content for the third slide.</p>
@@ -200,9 +208,15 @@
       </button>
     </div>
   </section>
-  
-  
-  <script src="script.js"></script>
+
+  <!-- <section class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+    <div>
+      <?php require_once "usuario.php"; ?>
+    </div>
+  </section> -->
+
+  <script src="/assets/js/script.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script>
 </body>
+
 </html>

@@ -1,5 +1,5 @@
 <?php
-require "conexion.php";
+require_once "conexion.php";
 
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['submit'])) {
   if (empty($_POST['firstname']) || empty($_POST['lastname']) || empty($_POST['email'])) {
@@ -33,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['submit'])) {
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="form.css" />
+  <link rel="stylesheet" href="/assets/styles/form.css" />
   <title>Formulario con PHP + EmailJS</title>
 </head>
 
