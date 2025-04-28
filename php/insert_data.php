@@ -64,7 +64,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['projectName']) && isse
         // Insertar el nuevo proyecto
         $insertProjectSql = "INSERT INTO proyectos (nombre, foto, url) VALUES (?, ?, ?)";
         $stmt = $conn->prepare($insertProjectSql);
-        $stmt->bind_param("sss", $projectName, $uploadedFile, $githubLink);
+        $stmt->bind_param("sss", $projectName, $targetFilePath, $githubLink);
         $stmt->execute();
         $projectId = $stmt->insert_id; // Obtener el ID del nuevo proyecto insertado
         $stmt->close();

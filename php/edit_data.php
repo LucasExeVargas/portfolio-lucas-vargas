@@ -7,6 +7,7 @@ $technologies = [];
 $errors = [];
 $success = false;
 $projects = [];
+$targetDir = "img_proyectos/";
 
 // Obtener todos los proyectos para el dropdown
 $projectsQuery = "SELECT id, nombre FROM proyectos ORDER BY nombre";
@@ -20,20 +21,20 @@ if ($projectsResult->num_rows > 0) {
 // Si se selecciona un proyecto, cargar sus datos
 if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['project_id']) && !empty($_GET['project_id'])) {
     $projectId = $_GET['project_id'];
-    
+
     // Obtener datos del proyecto
     $projectQuery = "SELECT id, nombre, foto, url FROM proyectos WHERE id = ?";
     $stmt = $conn->prepare($projectQuery);
     $stmt->bind_param("i", $projectId);
     $stmt->execute();
     $result = $stmt->get_result();
-    
+
     if ($result->num_rows > 0) {
         $projectData = $result->fetch_assoc();
         $projectName = $projectData['nombre'];
-        $currentImage = $projectData['foto'];
+        $currentImage = basename($projectData['foto']);
         $githubLink = $projectData['url'];
-        
+
         // Obtener tecnologías del proyecto
         $techQuery = "SELECT t.nombre FROM tecnologias t 
                       JOIN proyecto_tecnologia pt ON t.id = pt.tecnologia_id 
@@ -42,7 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['project_id']) && !empty(
         $stmt->bind_param("i", $projectId);
         $stmt->execute();
         $techResult = $stmt->get_result();
-        
+
         while ($techRow = $techResult->fetch_assoc()) {
             $technologies[] = $techRow['nombre'];
         }
@@ -53,7 +54,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['project_id']) && !empty(
 // Procesar el envío del formulario de actualización
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update']) && isset($_POST['projectId'])) {
     $projectId = $_POST['projectId'];
-    
+
     // Validar nombre del proyecto
     if (empty($_POST["projectName"])) {
         $errors[] = "El nombre del proyecto es obligatorio.";
@@ -78,8 +79,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update']) && isset($_P
     }
 
     // Manejar la imagen
-    $uploadedFile = $_POST['currentImage']; // Mantener la imagen actual por defecto
-    
     if (!empty($_FILES["projectImage"]["name"])) {
         $targetDir = "img_proyectos/";
 
@@ -94,8 +93,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update']) && isset($_P
         $allowTypes = array('jpg', 'png', 'jpeg');
         if (in_array($fileType, $allowTypes)) {
             if (move_uploaded_file($_FILES["projectImage"]["tmp_name"], $targetFilePath)) {
-                $uploadedFile = $newFileName;
-                
                 // Eliminar la imagen anterior si es diferente
                 if ($_POST['currentImage'] != $newFileName && !empty($_POST['currentImage'])) {
                     $oldImagePath = $targetDir . $_POST['currentImage'];
@@ -109,6 +106,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update']) && isset($_P
         } else {
             $errors[] = "Solo se permiten archivos JPG, JPEG y PNG.";
         }
+    } else {
+        // Si no se sube una nueva imagen, mantener la imagen actual con el prefijo
+        $targetFilePath = $targetDir . $_POST['currentImage'];
     }
 
     // Si no hay errores, actualizar
@@ -116,7 +116,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update']) && isset($_P
         // Actualizar el proyecto
         $updateProjectSql = "UPDATE proyectos SET nombre = ?, foto = ?, url = ? WHERE id = ?";
         $stmt = $conn->prepare($updateProjectSql);
-        $stmt->bind_param("sssi", $projectName, $uploadedFile, $githubLink, $projectId);
+        $stmt->bind_param("sssi", $projectName, $targetFilePath, $githubLink, $projectId);
         $stmt->execute();
         $stmt->close();
 
@@ -147,22 +147,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update']) && isset($_P
         }
 
         $success = true;
-        
+
         // Recargar los datos del proyecto actualizado
         $projectQuery = "SELECT id, nombre, foto, url FROM proyectos WHERE id = ?";
         $stmt = $conn->prepare($projectQuery);
         $stmt->bind_param("i", $projectId);
         $stmt->execute();
         $result = $stmt->get_result();
-        
+
         if ($result->num_rows > 0) {
             $projectData = $result->fetch_assoc();
             $projectName = $projectData['nombre'];
-            $currentImage = $projectData['foto'];
+            $currentImage = basename($projectData['foto']);
             $githubLink = $projectData['url'];
         }
         $stmt->close();
-        
+
         // Recargar tecnologías
         $technologies = [];
         $techQuery = "SELECT t.nombre FROM tecnologias t 
@@ -172,7 +172,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update']) && isset($_P
         $stmt->bind_param("i", $projectId);
         $stmt->execute();
         $techResult = $stmt->get_result();
-        
+
         while ($techRow = $techResult->fetch_assoc()) {
             $technologies[] = $techRow['nombre'];
         }
@@ -215,7 +215,7 @@ function test_input($data)
             content: " *";
             color: red;
         }
-        
+
         .current-image {
             max-width: 200px;
             max-height: 200px;
@@ -247,7 +247,7 @@ function test_input($data)
                     </ul>
                 </div>
             <?php endif; ?>
-            
+
             <!-- Formulario para seleccionar proyecto -->
             <form method="get" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" class="mb-4">
                 <div class="row align-items-end">
@@ -273,7 +273,7 @@ function test_input($data)
                 <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" enctype="multipart/form-data" class="needs-validation" novalidate>
                     <input type="hidden" name="projectId" value="<?php echo $projectId; ?>">
                     <input type="hidden" name="currentImage" value="<?php echo $currentImage; ?>">
-                    
+
                     <div class="mb-3">
                         <label for="projectName" class="form-label required-field">Nombre del Proyecto</label>
                         <input type="text" class="form-control" id="projectName" name="projectName" value="<?php echo $projectName; ?>" required>
@@ -320,7 +320,7 @@ function test_input($data)
                         <label for="githubLink" class="form-label">Enlace de GitHub (Opcional)</label>
                         <input type="url" class="form-control" id="githubLink" name="githubLink" value="<?php echo $githubLink; ?>" placeholder="https://github.com/usuario/repositorio">
                     </div>
-                    
+
                     <div class="d-grid mb-3">
                         <button type="submit" name="update" class="btn btn-primary">Actualizar Proyecto</button>
                     </div>
@@ -330,7 +330,7 @@ function test_input($data)
                     No se encontró el proyecto seleccionado.
                 </div>
             <?php endif; ?>
-            
+
             <div class="d-grid mb-3">
                 <a href="http://localhost:3000/php/panel_admin.php" class="btn btn-primary btn-lg" role="button">Volver</a>
             </div>
@@ -347,7 +347,7 @@ function test_input($data)
                 placeholder: "Selecciona las tecnologías utilizadas",
                 allowClear: true
             });
-            
+
             $('#project_id').select2({
                 placeholder: "Selecciona un proyecto para editar"
             });
