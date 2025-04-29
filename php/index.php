@@ -126,7 +126,7 @@
                 </div>
                 <div class="row mt-5">
                   <div class="col-6">
-                    <button class="button type1 custom-animated-btn btn-cv"></button>
+                    <button class="button type1 custom-animated-btn btn-cv" onclick="window.open('/assets/download/CV-LucasVargas.pdf', '_blank')"></button>
                   </div>
                   <div class="col-6">
                     <button class="button type1 custom-animated-btn btn-info"></button>
@@ -234,6 +234,11 @@
   <section class="container justify-content-center align-items-center" id="proyectos">
     <div>
       <?php require_once "cards.php"; ?>
+    </div>
+  </section>
+  <section>
+    <div class="container">
+      <?php require_once "footer.php"; ?>
     </div>
   </section>
 

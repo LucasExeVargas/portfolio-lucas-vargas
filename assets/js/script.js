@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const cards = document.querySelectorAll('.card');
     const heads = document.querySelectorAll('.head');
     const contents = document.querySelectorAll('.content');
+    const socialIcons = document.querySelectorAll('.bi'); // Selecciona todos los iconos de las redes sociales
 
     // Activar tema claro al inicio
     body.classList.add('light-theme');
@@ -34,7 +35,12 @@ document.addEventListener('DOMContentLoaded', () => {
         content.classList.add('content-light');
         content.classList.remove('content-dark');
     });
-    
+
+    // Cambiar los íconos de redes sociales a color oscuro por defecto
+    socialIcons.forEach(icon => {
+        icon.classList.add('text-dark');
+        icon.classList.remove('text-white');
+    });
 
     checkboxes.forEach(checkbox => {
         checkbox.checked = true;
@@ -69,6 +75,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     content.classList.add('content-light');
                     content.classList.remove('content-dark');
                 });
+
+                // Cambiar los íconos de redes sociales a color oscuro
+                socialIcons.forEach(icon => {
+                    icon.classList.add('text-dark');
+                    icon.classList.remove('text-white');
+                });
             } else {
                 body.classList.remove('light-theme');
                 body.classList.add('dark-theme');
@@ -94,20 +106,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     content.classList.remove('content-light');
                     content.classList.add('content-dark');
                 });
-                
+
+                // Cambiar los íconos de redes sociales a color blanco
+                socialIcons.forEach(icon => {
+                    icon.classList.add('text-white');
+                    icon.classList.remove('text-dark');
+                });
             }
         });
     });
-
-    // Descargar PDF al hacer click en el botón
-    if (btnCV) {
-        btnCV.addEventListener('click', () => {
-            const link = document.createElement('a');
-            link.href = 'assets\download\CV-LucasVargas.pdf'; // Reemplaza con la ruta real de tu PDF
-            link.download = 'Lucas_Vargas_CV.pdf';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-        });
-    }
 });

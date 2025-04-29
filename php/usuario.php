@@ -1,6 +1,7 @@
 <?php
 require_once "conexion.php";
 
+
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['submit'])) {
   if (empty($_POST['firstname']) || empty($_POST['lastname']) || empty($_POST['email'])) {
     echo "Debe completar los campos";
@@ -9,10 +10,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['submit'])) {
     $firstname = $_POST['firstname'];
     $lastname = $_POST['lastname'];
     $email = $_POST['email'];
-    $activ = 1;
 
-    $stmt = $con->prepare("INSERT INTO usuarios(nombre, apellido, email, activo) VALUES (?, ?, ?, ?)");
-    $stmt->bind_param("sssi", $firstname, $lastname, $email, $activ);
+    $stmt = $conn->prepare("INSERT INTO usuarios(nombre, apellido, email) VALUES (?, ?, ?)");
+    $stmt->bind_param("sss", $firstname, $lastname, $email);
 
     if ($stmt->execute()) {
       echo "Usuario agregado correctamente";
@@ -39,7 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['submit'])) {
 
 <body>
 
-  <form id="contact-form" class="form">
+  <form id="contact-form" class="form" method="post">
     <div class="flex">
       <label>
         <input name="firstname" required type="text" class="input" />
@@ -79,6 +79,22 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['submit'])) {
     form.addEventListener('submit', function(e) {
       e.preventDefault();
 
+      const submitButton = form.querySelector('button[type="submit"]');
+      const originalText = submitButton.querySelector('.text');
+      const originalContent = originalText.textContent;
+
+      // Bloquear y mostrar "Procesando..."
+      submitButton.disabled = true;
+      submitButton.classList.add('disabled');
+      originalText.textContent = 'Procesando...';
+
+      setTimeout(() => {
+        // Restaurar botón
+        submitButton.disabled = false;
+        submitButton.classList.remove('disabled');
+        originalText.textContent = originalContent;
+      }, 6000);
+
       const formData = new FormData(form);
       formData.append('submit', '1');
 
@@ -89,23 +105,19 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['submit'])) {
         .then(res => res.text())
         .then(res => {
           console.log(res);
-          // Solo enviar email si se insertó correctamente
           if (res.includes("Usuario agregado correctamente")) {
             emailjs.sendForm('service_k1ewwe6', 'template_yf8abgr', form)
               .then(() => {
-                alert('Usuario agregado y correo enviado ✅');
                 form.reset();
               }, (error) => {
-                alert('Usuario agregado, pero error al enviar correo ❌');
                 console.error('EmailJS error:', error);
               });
           } else {
-            alert(res);
+            console.log(res);
           }
         })
         .catch(error => {
           console.error('Error al enviar a PHP:', error);
-          alert("Error al procesar el formulario");
         });
     });
   </script>

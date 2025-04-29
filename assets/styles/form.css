@@ -347,5 +347,10 @@ body.dark-theme {
   background-color: #121212;
   color: #e4e6eb;
 }
-
+button:disabled,
+button.disabled {
+  opacity: 0.6;
+  pointer-events: none;
+  cursor: not-allowed;
+}
 /* Remove the old dark theme styles that used body.dark-theme selectors */
