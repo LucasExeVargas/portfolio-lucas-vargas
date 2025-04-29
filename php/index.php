@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Portfolio Lucas Vargas</title>
   <link rel="stylesheet" href="/assets/styles/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
 </head>
 
@@ -23,18 +24,18 @@
           <div class="collapse navbar-collapse" id="navbarTogglerMobile">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item">
-                <a href="https://getbootstrap.com/docs/5.3/components/navbar/" class="select-nav text-decoration-none">
+                <a href="#sobremi" class="select-nav text-decoration-none">
                   <p class="text-nav text-nav-dark fs-3 fw-medium m-0">Sobre mí</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link select-nav text-decoration-none">
+                <a href="#proyectos" class="nav-link select-nav text-decoration-none">
                   <p class="text-nav text-nav-dark fs-3 fw-medium m-0">Proyectos</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link select-nav text-decoration-none">
-                  <p class="text-nav text-nav-dark fs-3 fw-medium m-0">Contactos</p>
+                <a href="#contacto" class="nav-link select-nav text-decoration-none">
+                  <p class="text-nav text-nav-dark fs-3 fw-medium m-0">Contacto</p>
                 </a>
               </li>
             </ul>
@@ -71,15 +72,15 @@
 
         <!-- Navigation Links -->
         <ul class="nav-list d-flex list-unstyled mb-0">
-          <li><a href="#" class="select-nav text-decoration-none">
+          <li><a href="#sobremi" class="select-nav text-decoration-none">
               <p class="text-nav text-nav-dark fs-3 fw-medium m-0">Sobre mí</p>
             </a>
           </li>
-          <li><a href="#" class="select-nav text-decoration-none">
+          <li><a href="#proyectos" class="select-nav text-decoration-none">
               <p class="text-nav text-nav-dark fs-3 fw-medium m-0">Proyectos</p>
             </a>
           </li>
-          <li><a href="#" class="select-nav text-decoration-none">
+          <li><a href="#contacto" class="select-nav text-decoration-none">
               <p class="text-nav text-nav-dark fs-3 fw-medium m-0">Contacto</p>
             </a>
           </li>
@@ -123,7 +124,7 @@
                     <p class="text-center fs-3 fw-bold text-nav text-nav-dark">LUCAS EXEQUIEL VARGAS</p>
                   </div>
                 </div>
-                <div class="row">
+                <div class="row mt-5">
                   <div class="col-6">
                     <button class="button type1 custom-animated-btn btn-cv"></button>
                   </div>
@@ -138,29 +139,42 @@
       </div>
     </div>
   </section>
-  <section>
+  <section class="py-5" id="sobremi">
     <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-8 text-center ">
+          <h2 class="mb-4">Sobre Mí</h2>
+          <p class="lead text-nav text-nav-dark">
+            Soy una persona apasionada por el aprendizaje constante y los nuevos desafíos. Me encanta explorar diferentes áreas del conocimiento y siempre busco maneras de mejorar, innovar y aportar valor en cada proyecto que emprendo. Mi enfoque combina creatividad, disciplina y entusiasmo por crecer tanto a nivel personal como profesional.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container mt-5">
       <div class="row align-items-center vh-md-100">
-        <div class="col-md-6 d-flex justify-content-center mb-5 mb-md-0">
+        <div class="col-md-6 d-flex justify-content-center mb-5  mb-md-0">
           <div class="card card-light">
-            <div class="head head-light">
-              <p class="text-nav text-nav-dark">Window</p>
+            <div class="head head-light d-flex justify-content-center align-items-center">
+              <p class=" text-nav-light m-0">Educación</p>
             </div>
             <div class="content content-light">
               <p class="text-nav text-nav-dark">
-                This is a neobrutalist-style window with a button and space for any content you want!
+                Actualmente me encuentro cursando el tercer año de la Tecnicatura Universitaria en Programación en la UNSa.
               </p>
             </div>
           </div>
         </div>
         <div class="col-md-6 d-flex justify-content-center">
           <div class="card card-light">
-            <div class="head head-light">
-              <p class="text-nav text-nav-dark">Window</p>
+            <div class="head head-light d-flex justify-content-center align-items-center">
+              <p class=" text-nav-light m-0">Experiencia</p>
             </div>
             <div class="content content-light">
               <p class="text-nav text-nav-dark">
-                This is a neobrutalist-style window with a button and space for any content you want!
+                Desarrollador Back-End especializado en aplicaciones de escritorio y Desarrollador Front-End enfocado en páginas estáticas.
               </p>
             </div>
           </div>
@@ -168,42 +182,45 @@
       </div>
     </div>
   </section>
-  <section class="container">
+  <section class="container mt-5">
+    <h1 class="text-center mb-5">Estudios</h1>
     <div id="carouselExampleCaptions" class="carousel slide">
       <div class="carousel-indicators">
         <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
         <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2" onclick="descargarPDF()"></button>
-        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3" onclick="descargarPDF()"></button>
+        <!-- <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3" onclick="descargarPDF()"></button> -->
       </div>
       <div class="carousel-inner">
         <div class="carousel-item active">
-          <img src="/assets/img/logo-ar.svg" class="d-block w-100" alt="...">
+          <img src="/assets/img/unsa.png" class="d-block  carousel-image" alt="...">
           <div class="carousel-caption d-md-block">
-            <h5>First slide label</h5>
-            <p>Some representative placeholder content for the first slide.</p>
+            <h5>Universidad Nacional de Salta</h5>
+            <p>Actualmente en curso.</p>
           </div>
         </div>
         <div class="carousel-item ">
-          <img src="/assets/img/yo-dia.svg" class="d-block w-100" alt="...">
+          <img src="/assets/img/cac.png" class="d-block carousel-image" alt="...">
           <div class="carousel-caption d-md-block">
-            <h5>Second slide label</h5>
-            <p>Some representative placeholder content for the second slide.</p>
+            <h5>Codo a Codo
+              Full-Stack en Java
+            </h5>
+            <p>Finalizado</p>
           </div>
         </div>
-        <div class="carousel-item">
+        <!-- <div class="carousel-item">
           <img src="/assets/img/yo-noche.svg" class="d-block w-100" alt="...">
           <div class="carousel-caption d-md-block">
             <h5>Third slide label</h5>
             <p>Some representative placeholder content for the third slide.</p>
           </div>
-        </div>
+        </div> -->
       </div>
       <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <i class="bi bi-chevron-left text-light  fs-2"></i>
         <span class="visually-hidden">Previous</span>
       </button>
       <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <i class="bi bi-chevron-right text-light fs-2"></i>
         <span class="visually-hidden">Next</span>
       </button>
     </div>
@@ -214,7 +231,7 @@
       <?php require_once "usuario.php"; ?>
     </div>
   </section> -->
-  <section class="container">
+  <section class="container justify-content-center align-items-center" id="proyectos">
     <div>
       <?php require_once "cards.php"; ?>
     </div>

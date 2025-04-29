@@ -24,59 +24,16 @@ $result = $conn->query($sql);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mis Proyectos</title>
+    <title>Proyectos</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        /* Custom animations */
-        @keyframes float {
-            0% {
-                transform: translateY(0px);
-            }
-
-            50% {
-                transform: translateY(-10px);
-            }
-
-            100% {
-                transform: translateY(0px);
-            }
-        }
-
-        .logo-hover:hover {
-            animation: float 1s ease-in-out infinite;
-        }
-
-        .card-hover {
-            transition: all 0.3s ease;
-            height: 100%;
-        }
-
-        .card-hover:hover {
-            transform: scale(1.03);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-        }
-
-        .project-image {
-            height: 250px;
-            object-fit: cover;
-            width: 100%;
-        }
-
-        .tech-logo {
-            width: 40px;
-            height: 40px;
-            object-fit: contain;
-            border-radius: 50%;
-            background-color: #f8f9fa;
-            padding: 5px;
-        }
-    </style>
+    <!-- Custom CSS -->
+    <link href="/assets/styles/cards.css" rel="stylesheet">
 </head>
 
-<body class="bg-light py-5">
-    <div class="container">
-        <h1 class="text-center mb-5">Mis Proyectos</h1>
+<body class="bg-light py-5 light-theme">
+    <div class="container mt-5">
+        <h1 class="text-center mb-5">Proyectos</h1>
 
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
             <?php
@@ -99,11 +56,11 @@ $result = $conn->query($sql);
                         }
                     }
             ?>
-                    <div class="col">
+                    <div class="col d-flex flex-column align-items-center text-center">
                         <div class="card-hover card border-0 shadow-sm">
                             <!-- Project Image Section -->
                             <div class="position-relative overflow-hidden">
-                                <img class="project-image transition-transform duration-500 hover:scale-110"
+                                <img class="project-image"
                                     src="<?php echo htmlspecialchars($row["foto"]); ?>"
                                     alt="<?php echo htmlspecialchars($row["nombre"]); ?>">
                             </div>
@@ -114,7 +71,7 @@ $result = $conn->query($sql);
 
                                 <!-- Technology Logos Section -->
                                 <div class="mt-4">
-                                    <h3 class="text-muted small text-uppercase fw-semibold mb-3">Tecnologias Usadas</h3>
+                                    <h3 class="text-card small text-uppercase fw-semibold mb-3">Tecnologias Usadas</h3>
                                     <div class="d-flex flex-wrap gap-2 justify-content-center align-items-center border-top pt-3">
                                         <?php foreach ($technologies as $tech): ?>
                                             <div class="logo-hover" title="<?php echo htmlspecialchars($tech['nombre']); ?>">
@@ -146,11 +103,20 @@ $result = $conn->query($sql);
         </div>
     </div>
 
+    <!-- Theme Toggle Script -->
+    <script>
+        const toggleTheme = () => {
+            document.body.classList.toggle('dark-theme');
+            document.body.classList.toggle('light-theme');
+        };
+    </script>
+
     <!-- Bootstrap JS Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
+
 
 <?php
 // Close connection

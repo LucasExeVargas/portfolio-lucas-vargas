@@ -1,20 +1,44 @@
-/* From Uiverse.io by somshri16 */ 
 .form {
   display: flex;
   flex-direction: column;
   gap: 10px;
   max-width: 350px;
-  background-color: transpa;
+  background-color: transparent;
   padding: 20px;
-  border: solid #fff;
-  
+  border-width: 1px;
+  border-style: solid;
   border-radius: 10px;
   position: relative;
+  transition: all 0.3s ease;
+}
+
+/* Light theme styles (default) */
+body.light-theme .form {
+  border-color: #e0e0e0;
+  background-color: #ffffff;
+  color: #ccc;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+/* Dark theme styles */
+body.dark-theme .form {
+  border-color: #2a3a4a;
+  background-color: #1e2d3c;
+  color: #e4e6eb;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 .message {
-  color: rgba(88, 87, 87, 0.822);
   font-size: 14px;
+  transition: color 0.3s ease;
+}
+
+body.light-theme .message {
+  color: rgba(88, 87, 87, 0.822);
+}
+
+body.dark-theme .message {
+  color: #b0b3b8;
 }
 
 .flex {
@@ -27,22 +51,62 @@
   position: relative;
 }
 
-.form label .input {
+.form label .input,
+.input01 {
   width: 100%;
   padding: 10px 10px 20px 10px;
   outline: 0;
-  border: 1px solid rgba(105, 105, 105, 0.397);
+  border-width: 1px;
+  border-style: solid;
   border-radius: 5px;
+  transition: all 0.3s ease;
 }
 
-.form label .input + span {
+body.light-theme .form label .input,
+body.light-theme .input01 {
+  border-color: #ccc;
+  background-color: #ffffff;
+  color: #ccc;
+}
+
+body.dark-theme .form label .input,
+body.dark-theme .input01 {
+  border-color: #3a4a5a;
+  background-color: #2c3e50;
+  color: #e4e6eb;
+}
+
+.form label .input:focus,
+.input01:focus {
+  border-color: #4a90e2;
+  box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
+}
+
+.form label .input + span,
+.form label .input01 + span {
   position: absolute;
   left: 10px;
-  top: 15px;
-  color: grey;
   font-size: 0.9em;
   cursor: text;
   transition: 0.3s ease;
+}
+
+body.light-theme .form label .input + span,
+body.light-theme .form label .input01 + span {
+  color: grey;
+}
+
+body.dark-theme .form label .input + span,
+body.dark-theme .form label .input01 + span {
+  color: #b0b3b8;
+}
+
+.form label .input + span {
+  top: 15px;
+}
+
+.form label .input01 + span {
+  top: 50px;
 }
 
 .form label .input:placeholder-shown + span {
@@ -50,55 +114,40 @@
   font-size: 0.9em;
 }
 
-.form label .input:focus + span,.form label .input:valid + span {
-  top: 30px;
-  font-size: 0.7em;
-  font-weight: 600;
-}
-
-.form label .input:valid + span {
-  color: green;
-}
-
-.input01 {
-  width: 100%;
-  padding: 10px 10px 20px 10px;
-  outline: 0;
-  border: 1px solid rgba(105, 105, 105, 0.397);
-  border-radius: 5px;
-}
-
-.form label .input01 + span {
-  position: absolute;
-  left: 10px;
-  top: 50px;
-  color: grey;
-  font-size: 0.9em;
-  cursor: text;
-  transition: 0.3s ease;
-}
-
 .form label .input01:placeholder-shown + span {
   top: 40px;
   font-size: 0.9em;
 }
 
-.form label .input01:focus + span,.form label .input01:valid + span {
+.form label .input:focus + span,
+.form label .input:valid + span {
+  top: 30px;
+  font-size: 0.7em;
+  font-weight: 600;
+}
+
+.form label .input01:focus + span,
+.form label .input01:valid + span {
   top: 50px;
   font-size: 0.7em;
   font-weight: 600;
 }
 
-.form label .input01:valid + span {
+body.light-theme .form label .input:valid + span,
+body.light-theme .form label .input01:valid + span {
   color: green;
+}
+
+body.dark-theme .form label .input:valid + span,
+body.dark-theme .form label .input01:valid + span {
+  color: #4caf50;
 }
 
 .fancy {
   background-color: transparent;
-  border: 2px solid #ffffff;
-  border-radius: 0px;
+  border-width: 2px;
+  border-style: solid;
   box-sizing: border-box;
-  color: #fff;
   cursor: pointer;
   display: inline-block;
   font-weight: 390;
@@ -116,11 +165,22 @@
   font-size: 13px;
 }
 
+body.light-theme .fancy {
+  border-color: #ccc;
+  color: #ccc;
+  border-radius: 4px;
+}
+
+body.dark-theme .fancy {
+  border-color: #4a90e2;
+  color: #e4e6eb;
+  border-radius: 4px;
+}
+
 .fancy::before {
   content: " ";
   width: 1.7rem;
   height: 2px;
-  background: #ffffff;
   top: 50%;
   left: 1.5em;
   position: absolute;
@@ -128,6 +188,14 @@
   transform: translateX(230%);
   transform-origin: center;
   transition: background 0.3s linear, width 0.3s linear;
+}
+
+body.light-theme .fancy::before {
+  background: #ccc;
+}
+
+body.dark-theme .fancy::before {
+  background: #4a90e2;
 }
 
 .fancy .text {
@@ -139,46 +207,72 @@
   transition: all 0.3s ease-in-out;
   text-transform: lowercase;
   text-decoration: none;
-  color: #ffffff;
   transform: translateX(30%);
 }
 
-.fancy .top-key {
+body.light-theme .fancy .text {
+  color: #333333;
+}
+
+body.dark-theme .fancy .text {
+  color: #e4e6eb;
+}
+
+.fancy .top-key,
+.fancy .bottom-key-1,
+.fancy .bottom-key-2 {
   height: 2px;
+  position: absolute;
+  transition: width 0.5s ease-out, left 0.3s ease-out, right 0.3s ease-out;
+}
+
+body.light-theme .fancy .top-key,
+body.light-theme .fancy .bottom-key-1,
+body.light-theme .fancy .bottom-key-2 {
+  background: #ccc;
+}
+
+body.dark-theme .fancy .top-key,
+body.dark-theme .fancy .bottom-key-1,
+body.dark-theme .fancy .bottom-key-2 {
+  background: #4a90e2;
+}
+
+.fancy .top-key {
   width: 1.5625rem;
   top: -2px;
   left: 0.625rem;
-  position: absolute;
-  background: white;
-  transition: width 0.5s ease-out, left 0.3s ease-out;
 }
 
 .fancy .bottom-key-1 {
-  height: 2px;
   width: 1.5625rem;
   right: 1.875rem;
   bottom: -2px;
-  position: absolute;
-  background: white;
-  transition: width 0.5s ease-out, right 0.3s ease-out;
 }
 
 .fancy .bottom-key-2 {
-  height: 2px;
   width: 0.625rem;
   right: 0.625rem;
   bottom: -2px;
-  position: absolute;
-  background: white;
-  transition: width 0.5s ease-out, right 0.3s ease-out;
 }
 
-.fancy:hover {
+body.light-theme .fancy:hover {
   color: white;
-  background: #cacaca;
+  background: #ccc;
 }
 
-.fancy:hover::before {
+body.dark-theme .fancy:hover {
+  color: white;
+  background: #3a7bc8;
+  border-color: #3a7bc8;
+}
+
+body.light-theme .fancy:hover::before {
+  width: 1.5rem;
+  background: white;
+}
+
+body.dark-theme .fancy:hover::before {
   width: 1.5rem;
   background: white;
 }
@@ -198,3 +292,60 @@
   right: 0;
   width: 0;
 }
+
+/* Add focus styles for accessibility */
+.fancy:focus {
+  outline: none;
+}
+
+body.light-theme .fancy:focus {
+  box-shadow: 0 0 0 3px rgba(51, 51, 51, 0.3);
+}
+
+body.dark-theme .fancy:focus {
+  box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.5);
+}
+
+/* Add some subtle animations */
+@keyframes formFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.form {
+  animation: formFadeIn 0.5s ease forwards;
+}
+
+/* Improve placeholder contrast */
+body.light-theme ::placeholder {
+  color: #999;
+  opacity: 1;
+}
+
+body.dark-theme ::placeholder {
+  color: #8a9aab;
+  opacity: 1;
+}
+
+/* Theme transition */
+body {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body.light-theme {
+  background-color: #f5f5f5;
+  color: #333333;
+}
+
+body.dark-theme {
+  background-color: #121212;
+  color: #e4e6eb;
+}
+
+/* Remove the old dark theme styles that used body.dark-theme selectors */

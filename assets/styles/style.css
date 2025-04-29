@@ -243,7 +243,7 @@ header {
   content: "CV";
 }
 .custom-animated-btn-light.type1.btn-info::before{
-  content: "INFO";
+  content: "CONTACTO";
 }
 
 .custom-animated-btn.type1:hover::after {
@@ -307,8 +307,8 @@ header {
   box-shadow: 12px 12px 0 #000000;
 }
 .card-dark{
-  border: 3px solid #ffffff;
-  box-shadow: 12px 12px 0 #ffffff;
+  border: 3px solid #000000;
+  box-shadow: 12px 12px 0 #000000;
 }
 
 .head {
@@ -320,13 +320,13 @@ header {
 
 }
 .head-light{
-  background: #ffffff;
+  background: #b6b6b6;
   padding: 5px 12px;
-  color: #000000;
+  color: #fbfbfb;
   border-bottom: 3px solid #000000;
 }
 .head-dark{
-  background: #000000;
+  background: #dddddd;
   padding: 5px 12px;
   color: #ffffff;
   border-bottom: 3px solid #ffffff;
@@ -335,10 +335,10 @@ header {
   padding: 8px 12px;
   font-size: 14px;
   font-weight: 600;
-  background: #48B4C8;
+  background: #507A86;
 }
 .content-light{
-  background: #48B4C8;
+  background: #507A86;
 }
 .content-dark{
   background: #11222C;
@@ -350,7 +350,7 @@ header {
 }
 .card-dark:hover {
   transform: translate(-6px, -6px); /* Corrected the property here */
-  box-shadow: 16px 16px 0 #ffffff; /* Optional: added an effect on hover */
+  box-shadow: 16px 16px 0 #000000; /* Optional: added an effect on hover */
 }
 .title-form{
   font: 2rem;
@@ -367,4 +367,17 @@ header {
   border: 3px;
   vertical-align: middle;
   background-color: #f7f7f7;
+}
+.carousel-image {
+  width: auto;
+  height: 400px; /* Puedes ajustar la altura que prefieras */
+  object-fit: cover; /* Corta la imagen para que llene el espacio sin deformarla */
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23000' viewBox='0 0 8 8'%3E%3Cpath d='M5.5 0L4.09 1.41 6.67 4 4.09 6.59 5.5 8l4-4z' transform='rotate(180 4 4)'/%3E%3C/svg%3E");
+}
+.carousel-control-next-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23000' viewBox='0 0 8 8'%3E%3Cpath d='M0 0l1.41 1.41L3.83 4 1.41 6.59 0 8l4-4-4-4z'/%3E%3C/svg%3E");
 }

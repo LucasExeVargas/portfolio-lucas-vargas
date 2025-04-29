@@ -13,13 +13,11 @@ $accion = isset($_POST['accion']) ? $_POST['accion'] : '';
 </head>
 
 <body class="bg-light">
-
     <div class="container mt-5">
         <div class="card shadow p-4">
             <h2 class="mb-4 text-center">Panel de Administración</h2>
             <form method="post" class="text-center">
                 <div class="d-grid gap-3">
-                    <!-- Todos los botones ahora son enlaces con la apariencia de un botón -->
                     <a href="http://localhost:3000/php/insert_data.php" class="btn btn-primary btn-lg" role="button">Nuevo Proyecto</a>
                     <a href="http://localhost:3000/php/edit_data.php" class="btn btn-warning btn-lg" role="button">Modificar Proyecto</a>
                     <a href="http://localhost:3000/php/insert_tech.php" class="btn btn-success btn-lg" role="button">Crear Nueva Tecnología</a>
