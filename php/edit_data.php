@@ -6,24 +6,20 @@ $projectId = $projectName = $githubLink = $currentImage = "";
 $technologies = [];
 $errors = [];
 $success = false;
-$projects = [];
 $targetDir = "img_proyectos/";
 
-// Obtener todos los proyectos para el dropdown
-$projectsQuery = "SELECT id, nombre FROM proyectos ORDER BY nombre";
-$projectsResult = $conn->query($projectsQuery);
-if ($projectsResult->num_rows > 0) {
-    while ($row = $projectsResult->fetch_assoc()) {
-        $projects[] = $row;
-    }
+// If no ID is provided and not a POST request, show all projects
+if (!isset($_GET['id']) && !isset($_POST['projectId'])) {
+    $result = $conn->query("SELECT id, nombre, foto, url, activo FROM proyectos WHERE activo = 1 ORDER BY nombre");
+    $proyectos = $result->fetch_all(MYSQLI_ASSOC);
 }
 
 // Si se selecciona un proyecto, cargar sus datos
-if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['project_id']) && !empty($_GET['project_id'])) {
-    $projectId = $_GET['project_id'];
+if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['id']) && !empty($_GET['id'])) {
+    $projectId = $_GET['id'];
 
     // Obtener datos del proyecto
-    $projectQuery = "SELECT id, nombre, foto, url FROM proyectos WHERE id = ?";
+    $projectQuery = "SELECT id, nombre, foto, url, activo FROM proyectos WHERE id = ?";
     $stmt = $conn->prepare($projectQuery);
     $stmt->bind_param("i", $projectId);
     $stmt->execute();
@@ -149,7 +145,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update']) && isset($_P
         $success = true;
 
         // Recargar los datos del proyecto actualizado
-        $projectQuery = "SELECT id, nombre, foto, url FROM proyectos WHERE id = ?";
+        $projectQuery = "SELECT id, nombre, foto, url, activo FROM proyectos WHERE id = ?";
         $stmt = $conn->prepare($projectQuery);
         $stmt->bind_param("i", $projectId);
         $stmt->execute();
@@ -248,28 +244,47 @@ function test_input($data)
                 </div>
             <?php endif; ?>
 
-            <!-- Formulario para seleccionar proyecto -->
-            <form method="get" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" class="mb-4">
-                <div class="row align-items-end">
-                    <div class="col-md-9">
-                        <label for="project_id" class="form-label">Seleccionar Proyecto a Editar</label>
-                        <select class="form-select" id="project_id" name="project_id" required>
-                            <option value="">Seleccione un proyecto</option>
-                            <?php foreach ($projects as $project): ?>
-                                <option value="<?php echo $project['id']; ?>" <?php echo ($projectId == $project['id']) ? 'selected' : ''; ?>>
-                                    <?php echo htmlspecialchars($project['nombre']); ?>
-                                </option>
+            <?php if (isset($proyectos)): ?>
+                <!-- List of projects to select for editing -->
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Imagen</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($proyectos as $project): ?>
+                                <tr>
+                                    <td><?php echo htmlspecialchars($project['nombre']); ?></td>
+                                    <td>
+                                        <?php if (!empty($project['foto']) && file_exists($project['foto'])): ?>
+                                            <img src="<?php echo $project['foto']; ?>" alt="<?php echo htmlspecialchars($project['nombre']); ?>" style="max-height: 50px;">
+                                        <?php else: ?>
+                                            <span class="text-muted">Sin imagen</span>
+                                        <?php endif; ?>
+                                    </td>
+                                    <td>
+                                        <?php if ($project['activo'] == 1): ?>
+                                            <span class="badge bg-success">Activo</span>
+                                        <?php else: ?>
+                                            <span class="badge bg-danger">Inactivo</span>
+                                        <?php endif; ?>
+                                    </td>
+                                    <td>
+                                        <a href="?id=<?php echo $project['id']; ?>" class="btn btn-primary btn-sm">Editar</a>
+                                    </td>
+                                </tr>
                             <?php endforeach; ?>
-                        </select>
-                    </div>
-                    <div class="col-md-3">
-                        <button type="submit" class="btn btn-secondary w-100">Cargar Proyecto</button>
-                    </div>
+                        </tbody>
+                    </table>
                 </div>
-            </form>
-
-            <!-- Formulario para editar proyecto -->
-            <?php if (!empty($projectId)): ?>
+                <a href="http://localhost:3000/php/panel_admin.php" class="btn btn-outline-primary">Volver al Panel</a>
+            <?php elseif (isset($projectId)): ?>
+                <!-- Edit form for the selected project -->
                 <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" enctype="multipart/form-data" class="needs-validation" novalidate>
                     <input type="hidden" name="projectId" value="<?php echo $projectId; ?>">
                     <input type="hidden" name="currentImage" value="<?php echo $currentImage; ?>">
@@ -283,15 +298,17 @@ function test_input($data)
                         <label for="technologies" class="form-label required-field">Tecnologías Utilizadas</label>
                         <select class="form-select" id="technologies" name="technologies[]" multiple="multiple" required>
                             <?php
-                            $sql = "SELECT id, nombre FROM tecnologias";
+                            // Show all technologies, including inactive ones
+                            $sql = "SELECT id, nombre, activo FROM tecnologias";
                             $result = $conn->query($sql);
 
                             if ($result->num_rows > 0):
                                 while ($row = $result->fetch_assoc()):
                                     $selected = in_array($row['nombre'], $technologies) ? 'selected' : '';
+                                    $status = $row['activo'] == 0 ? ' (Inactivo)' : '';
                             ?>
                                     <option value="<?php echo htmlspecialchars($row['nombre']); ?>" <?php echo $selected; ?>>
-                                        <?php echo htmlspecialchars($row['nombre']); ?>
+                                        <?php echo htmlspecialchars($row['nombre']) . $status; ?>
                                     </option>
                                 <?php
                                 endwhile;
@@ -321,19 +338,19 @@ function test_input($data)
                         <input type="url" class="form-control" id="githubLink" name="githubLink" value="<?php echo $githubLink; ?>" placeholder="https://github.com/usuario/repositorio">
                     </div>
 
-                    <div class="d-grid mb-3">
+                    <div class="d-grid gap-2">
                         <button type="submit" name="update" class="btn btn-primary">Actualizar Proyecto</button>
+                        <a href="edit_data.php" class="btn btn-secondary">Volver a la Lista</a>
+                        <a href="http://localhost:3000/php/panel_admin.php" class="btn btn-outline-primary">Volver al Panel</a>
                     </div>
                 </form>
-            <?php elseif ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['project_id'])): ?>
-                <div class="alert alert-warning">
-                    No se encontró el proyecto seleccionado.
+            <?php else: ?>
+                <div class="alert alert-warning">Proyecto no encontrado.</div>
+                <div class="d-grid gap-2">
+                    <a href="edit_data.php" class="btn btn-primary">Ver Lista de Proyectos</a>
+                    <a href="http://localhost:3000/php/panel_admin.php" class="btn btn-outline-primary">Volver al Panel</a>
                 </div>
             <?php endif; ?>
-
-            <div class="d-grid mb-3">
-                <a href="http://localhost:3000/php/panel_admin.php" class="btn btn-primary btn-lg" role="button">Volver</a>
-            </div>
         </div>
     </div>
 
@@ -346,10 +363,6 @@ function test_input($data)
             $('#technologies').select2({
                 placeholder: "Selecciona las tecnologías utilizadas",
                 allowClear: true
-            });
-
-            $('#project_id').select2({
-                placeholder: "Selecciona un proyecto para editar"
             });
         });
     </script>

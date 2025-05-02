@@ -160,7 +160,8 @@ function test_input($data)
                     <label for="technologies" class="form-label required-field">Tecnologías Utilizadas</label>
                     <select class="form-select" id="technologies" name="technologies[]" multiple="multiple" required>
                         <?php
-                        $sql = "SELECT id, nombre FROM tecnologias";
+                        // Modify the SQL query to only select active technologies
+                        $sql = "SELECT id, nombre FROM tecnologias WHERE activo = 1";
                         $result = $conn->query($sql);
 
                         if ($result->num_rows > 0):

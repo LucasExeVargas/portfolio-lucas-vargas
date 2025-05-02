@@ -5,13 +5,15 @@ require_once 'conexion.php';
 $conn->set_charset("utf8");
 
 // Query to get all projects with their associated technologies
-$sql = "SELECT p.id, p.nombre, p.foto, p.url, 
+// Note: We still show all technologies associated with a project, even if they're inactive
+$sql = "SELECT p.id, p.nombre, p.foto, p.url, p.activo, 
                GROUP_CONCAT(t.id) as tech_ids, 
                GROUP_CONCAT(t.nombre) as tech_names, 
                GROUP_CONCAT(t.foto) as tech_fotos
         FROM proyectos p
         LEFT JOIN proyecto_tecnologia pt ON p.id = pt.proyecto_id
         LEFT JOIN tecnologias t ON pt.tecnologia_id = t.id
+        WHERE p.activo = 1
         GROUP BY p.id
         ORDER BY p.id DESC";
 
@@ -118,7 +120,3 @@ $result = $conn->query($sql);
 </html>
 
 
-<?php
-// Close connection
-$conn->close();
-?>

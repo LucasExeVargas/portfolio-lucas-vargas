@@ -7,7 +7,8 @@ $mensaje = '';
 // If we have an ID in the URL, load that technology
 if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     $id = $_GET['id'];
-    $stmt = $conn->prepare("SELECT id, nombre, foto FROM tecnologias WHERE id = ?");
+    // Update the SELECT query to include the activo field
+    $stmt = $conn->prepare("SELECT id, nombre, foto, activo FROM tecnologias WHERE id = ?");
     $stmt->bind_param("i", $id);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -20,7 +21,8 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     $stmt->close();
 } elseif (!isset($_POST['id'])) {
     // If no ID is provided and not a POST request, show all technologies
-    $result = $conn->query("SELECT id, nombre, foto FROM tecnologias ORDER BY nombre");
+    // Also update the query for listing all technologies
+    $result = $conn->query("SELECT id, nombre, foto, activo FROM tecnologias WHERE activo = 1 ORDER BY nombre");
     $tecnologias = $result->fetch_all(MYSQLI_ASSOC);
 }
 
@@ -45,7 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id']) && isset($_POST[
                 $mensaje = "Error: Ya existe otra tecnología con ese nombre.";
                 $check_stmt->close();
                 // Reload the current technology
-                $stmt = $conn->prepare("SELECT id, nombre, foto FROM tecnologias WHERE id = ?");
+                $stmt = $conn->prepare("SELECT id, nombre, foto, activo FROM tecnologias WHERE id = ?");
                 $stmt->bind_param("i", $id);
                 $stmt->execute();
                 $result = $stmt->get_result();
@@ -122,7 +124,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id']) && isset($_POST[
                         }
 
                         // Reload the current technology with updated info
-                        $stmt = $conn->prepare("SELECT id, nombre, foto FROM tecnologias WHERE id = ?");
+                        $stmt = $conn->prepare("SELECT id, nombre, foto, activo FROM tecnologias WHERE id = ?");
                         $stmt->bind_param("i", $id);
                         $stmt->execute();
                         $result = $stmt->get_result();
@@ -169,7 +171,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id']) && isset($_POST[
                         $mensaje = "Imagen actualizada exitosamente.";
 
                         // Reload the current technology
-                        $stmt = $conn->prepare("SELECT id, nombre, foto FROM tecnologias WHERE id = ?");
+                        $stmt = $conn->prepare("SELECT id, nombre, foto, activo FROM tecnologias WHERE id = ?");
                         $stmt->bind_param("i", $id);
                         $stmt->execute();
                         $result = $stmt->get_result();
@@ -215,10 +217,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id']) && isset($_POST[
                         <!-- List of technologies to select for editing -->
                         <div class="table-responsive">
                             <table class="table table-hover">
+                                <!-- In the table display, add a column for status -->
                                 <thead>
                                     <tr>
                                         <th>Nombre</th>
                                         <th>Imagen</th>
+                                        <th>Estado</th>
                                         <th>Acciones</th>
                                     </tr>
                                 </thead>
@@ -231,6 +235,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id']) && isset($_POST[
                                                     <img src="<?php echo $tech['foto']; ?>" alt="<?php echo htmlspecialchars($tech['nombre']); ?>" style="max-height: 50px;">
                                                 <?php else: ?>
                                                     <span class="text-muted">Sin imagen</span>
+                                                <?php endif; ?>
+                                            </td>
+                                            <td>
+                                                <?php if ($tech['activo'] == 1): ?>
+                                                    <span class="badge bg-success">Activo</span>
+                                                <?php else: ?>
+                                                    <span class="badge bg-danger">Inactivo</span>
                                                 <?php endif; ?>
                                             </td>
                                             <td>
@@ -270,9 +281,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id']) && isset($_POST[
                                 <div class="form-text">Deja este campo vacío si no deseas cambiar la imagen.</div>
                             </div>
 
+                            <div class="mb-3">
+                                <label class="form-label">Estado</label>
+                                <div>
+                                    <?php if ($tecnologia['activo'] == 1): ?>
+                                        <span class="badge bg-success">Activo</span>
+                                    <?php else: ?>
+                                        <span class="badge bg-danger">Inactivo</span>
+                                    <?php endif; ?>
+                                    <div class="form-text">Para cambiar el estado, use la opción "Gestionar Estado de Tecnologías" en el panel de administración.</div>
+                                </div>
+                            </div>
+
                             <div class="d-grid gap-2">
                                 <button type="submit" class="btn btn-primary">Guardar Cambios</button>
                                 <a href="edit_tech.php" class="btn btn-secondary">Volver a la Lista</a>
+                                class="btn btn-secondary">Volver a la Lista</a>
                                 <a href="http://localhost:3000/php/panel_admin.php" class="btn btn-outline-primary">Volver al Panel</a>
                             </div>
                         </form>

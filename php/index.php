@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -188,14 +189,13 @@
       <div class="carousel-indicators">
         <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
         <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2" onclick="descargarPDF()"></button>
-        <!-- <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3" onclick="descargarPDF()"></button> -->
       </div>
       <div class="carousel-inner">
         <div class="carousel-item active">
           <img src="/assets/img/unsa.png" class="d-block  carousel-image" alt="...">
           <div class="carousel-caption d-md-block">
             <h5>Universidad Nacional de Salta</h5>
-            <p>Actualmente en curso.</p>
+            <p>En curso.</p>
           </div>
         </div>
         <div class="carousel-item ">
@@ -207,30 +207,19 @@
             <p>Finalizado</p>
           </div>
         </div>
-        <!-- <div class="carousel-item">
-          <img src="/assets/img/yo-noche.svg" class="d-block w-100" alt="...">
-          <div class="carousel-caption d-md-block">
-            <h5>Third slide label</h5>
-            <p>Some representative placeholder content for the third slide.</p>
-          </div>
-        </div> -->
       </div>
       <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
-        <i class="bi bi-chevron-left text-light  fs-2"></i>
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Previous</span>
       </button>
       <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
-        <i class="bi bi-chevron-right text-light fs-2"></i>
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Next</span>
       </button>
     </div>
   </section>
 
-  <!-- <section class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
-    <div>
-      <?php require_once "usuario.php"; ?>
-    </div>
-  </section> -->
+
   <section class="container justify-content-center align-items-center" id="proyectos">
     <div>
       <?php require_once "cards.php"; ?>

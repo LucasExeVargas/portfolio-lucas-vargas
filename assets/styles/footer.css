@@ -1,0 +1,18 @@
+.custom-footer {
+    margin-top: 10rem;
+}
+
+@media (max-width: 768px) {
+    .custom-footer {
+        margin-top: 3rem; /* Reduce el margen en dispositivos móviles */
+    }
+
+    .custom-footer .d-flex {
+        flex-wrap: wrap; /* Asegura que los íconos se ajusten bien */
+        justify-content: center;
+    }
+
+    .custom-footer a {
+        margin: 0.5rem; /* Espaciado uniforme en íconos */
+    }
+}
