@@ -1,14 +1,13 @@
 <?php
 require_once 'conexion.php';
 
-// Definir variables
 $projectId = $projectName = $githubLink = $currentImage = "";
 $technologies = [];
 $errors = [];
 $success = false;
 $targetDir = "img_proyectos/";
 
-// If no ID is provided and not a POST request, show all projects
+// Si no se proporciona ninguna identificación ni una solicitud POST, mostrar todos los proyectos
 if (!isset($_GET['id']) && !isset($_POST['projectId'])) {
     $result = $conn->query("SELECT id, nombre, foto, url, activo FROM proyectos WHERE activo = 1 ORDER BY nombre");
     $proyectos = $result->fetch_all(MYSQLI_ASSOC);
@@ -245,7 +244,7 @@ function test_input($data)
             <?php endif; ?>
 
             <?php if (isset($proyectos)): ?>
-                <!-- List of projects to select for editing -->
+                <!-- Lista de proyectos para seleccionar para editar -->
                 <div class="table-responsive">
                     <table class="table table-hover">
                         <thead>
@@ -284,7 +283,7 @@ function test_input($data)
                 </div>
                 <a href="http://localhost:3000/php/panel_admin.php" class="btn btn-outline-primary">Volver al Panel</a>
             <?php elseif (isset($projectId)): ?>
-                <!-- Edit form for the selected project -->
+                <!-- Editar formulario para el proyecto seleccionado -->
                 <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" enctype="multipart/form-data" class="needs-validation" novalidate>
                     <input type="hidden" name="projectId" value="<?php echo $projectId; ?>">
                     <input type="hidden" name="currentImage" value="<?php echo $currentImage; ?>">
@@ -298,7 +297,7 @@ function test_input($data)
                         <label for="technologies" class="form-label required-field">Tecnologías Utilizadas</label>
                         <select class="form-select" id="technologies" name="technologies[]" multiple="multiple" required>
                             <?php
-                            // Show all technologies, including inactive ones
+                            // Mostrar todas las tecnologías, incluidas las inactivas
                             $sql = "SELECT id, nombre, activo FROM tecnologias";
                             $result = $conn->query($sql);
 

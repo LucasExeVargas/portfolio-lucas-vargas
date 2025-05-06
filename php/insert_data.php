@@ -160,7 +160,7 @@ function test_input($data)
                     <label for="technologies" class="form-label required-field">Tecnologías Utilizadas</label>
                     <select class="form-select" id="technologies" name="technologies[]" multiple="multiple" required>
                         <?php
-                        // Modify the SQL query to only select active technologies
+                        // Modificar la consulta SQL para seleccionar solo tecnologías activas
                         $sql = "SELECT id, nombre FROM tecnologias WHERE activo = 1";
                         $result = $conn->query($sql);
 

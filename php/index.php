@@ -81,15 +81,11 @@
     <!-- Desktop Header -->
     <nav class="navbar d-none d-md-flex">
       <div class="header-container  align-items-center justify-content-between">
-
-        <!-- Logo -->
         <div class="column-1">
           <figure class="figure-nav m-0">
             <img src="/assets/img/logo-ar.svg" class="img-ar" alt="Logo AR">
           </figure>
         </div>
-
-        <!-- Navigation Links -->
         <ul class="nav-list d-flex list-unstyled mb-0">
           <li><a href="#sobremi" class="select-nav text-decoration-none">
               <p class="text-nav text-nav-dark fs-3 fw-medium m-0">Sobre mí</p>
@@ -104,7 +100,6 @@
             </a>
           </li>
         </ul>
-
         <!-- Dark Mode Switch -->
         <div class="column-3">
           <label class="switch">
@@ -201,6 +196,7 @@
       </div>
     </div>
   </section>
+
   <section class="container mt-5">
     <h1 class="text-center mb-5">Estudios</h1>
     <div id="carouselExampleCaptions" class="carousel slide">
@@ -237,17 +233,18 @@
     </div>
   </section>
 
-
   <section class="container justify-content-center align-items-center" id="proyectos">
     <div>
       <?php require_once "cards.php"; ?>
     </div>
   </section>
+
   <section>
     <div class="container">
       <?php require_once "footer.php"; ?>
     </div>
   </section>
+  
   <script>
       document
         .querySelector(".navbar-toggler")

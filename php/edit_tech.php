@@ -1,13 +1,12 @@
 <?php
 require_once 'conexion.php';
 
-// Variable to store messages
 $mensaje = '';
 
-// If we have an ID in the URL, load that technology
+// Si tenemos un ID en la URL, cargamos esa tecnología
 if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     $id = $_GET['id'];
-    // Update the SELECT query to include the activo field
+    // Actualizar la consulta SELECT para incluir el campo activo
     $stmt = $conn->prepare("SELECT id, nombre, foto, activo FROM tecnologias WHERE id = ?");
     $stmt->bind_param("i", $id);
     $stmt->execute();
@@ -20,23 +19,23 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     }
     $stmt->close();
 } elseif (!isset($_POST['id'])) {
-    // If no ID is provided and not a POST request, show all technologies
-    // Also update the query for listing all technologies
+    // Si no se proporciona ningún ID ni una solicitud POST, mostrar todas las tecnologías.
+    // Actualizar también la consulta para listar todas las tecnologías.
     $result = $conn->query("SELECT id, nombre, foto, activo FROM tecnologias WHERE activo = 1 ORDER BY nombre");
     $tecnologias = $result->fetch_all(MYSQLI_ASSOC);
 }
 
-// Handle form submission
+// Gestionar el envío del formulario
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id']) && isset($_POST['nombre'])) {
     $id = $_POST['id'];
     $nombre = trim($_POST['nombre']);
     $nombre_original = $_POST['nombre_original'];
 
-    // Check if we need to validate the name (only if it changed)
+    // Verificamos si necesitamos validar el nombre (solo si cambió)
     $nombre_changed = ($nombre != $nombre_original);
 
     if (!empty($nombre)) {
-        // If name changed, check if it already exists
+        // Si el nombre cambió, verificar si ya existe
         if ($nombre_changed) {
             $check_stmt = $conn->prepare("SELECT id FROM tecnologias WHERE nombre = ? AND id != ?");
             $check_stmt->bind_param("si", $nombre, $id);
@@ -46,7 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id']) && isset($_POST[
             if ($check_stmt->num_rows > 0) {
                 $mensaje = "Error: Ya existe otra tecnología con ese nombre.";
                 $check_stmt->close();
-                // Reload the current technology
+                // Recargar la tecnología actual
                 $stmt = $conn->prepare("SELECT id, nombre, foto, activo FROM tecnologias WHERE id = ?");
                 $stmt->bind_param("i", $id);
                 $stmt->execute();
@@ -58,7 +57,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id']) && isset($_POST[
                 $update_image = false;
                 $relative_path = '';
 
-                // Check if a new image was uploaded
+                //Comprueba si se ha cargado una nueva imagen
                 if (isset($_FILES['foto']) && $_FILES['foto']['error'] == 0) {
                     if (!is_dir('img_tecnologias')) {
                         mkdir('img_tecnologias', 0777, true);
@@ -68,7 +67,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id']) && isset($_POST[
                     $filename = $nombre . '.' . strtolower($ext);
                     $target_path = 'img_tecnologias/' . $filename;
 
-                    // Get the old image path to delete it later
+                    // Obtener la ruta de la imagen antigua para eliminarla más tarde
                     $stmt = $conn->prepare("SELECT foto FROM tecnologias WHERE id = ?");
                     $stmt->bind_param("i", $id);
                     $stmt->execute();
@@ -80,7 +79,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id']) && isset($_POST[
                         $relative_path = 'img_tecnologias/' . $filename;
                         $update_image = true;
 
-                        // Delete the old image if it exists and is different
+                        //Eliminar la imagen antigua si existe y es diferente
                         if (!empty($old_image) && $old_image != $relative_path && file_exists($old_image)) {
                             unlink($old_image);
                         }
@@ -89,7 +88,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id']) && isset($_POST[
                     }
                 }
 
-                // Update the database
+                // Actualizar la base de datos
                 if (empty($mensaje)) {
                     if ($update_image) {
                         $stmt = $conn->prepare("UPDATE tecnologias SET nombre = ?, foto = ? WHERE id = ?");
@@ -102,7 +101,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id']) && isset($_POST[
                     if ($stmt->execute()) {
                         $mensaje = "Tecnología actualizada exitosamente.";
 
-                        // If name changed but image wasn't uploaded, rename the image file
+                        // Si el nombre cambió pero la imagen no se cargó, cambie el nombre del archivo de imagen
                         if ($nombre_changed && !$update_image) {
                             $stmt = $conn->prepare("SELECT foto FROM tecnologias WHERE id = ?");
                             $stmt->bind_param("i", $id);
@@ -115,7 +114,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id']) && isset($_POST[
                                 $new_filename = 'img_tecnologias/' . $nombre . '.' . $path_info['extension'];
 
                                 if (rename($current_image, $new_filename)) {
-                                    // Update the database with the new filename
+                                    // Actualizar la base de datos con el nuevo nombre de archivo
                                     $stmt = $conn->prepare("UPDATE tecnologias SET foto = ? WHERE id = ?");
                                     $stmt->bind_param("si", $new_filename, $id);
                                     $stmt->execute();
@@ -123,7 +122,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id']) && isset($_POST[
                             }
                         }
 
-                        // Reload the current technology with updated info
+                        // Recargue la tecnología actual con información actualizada
                         $stmt = $conn->prepare("SELECT id, nombre, foto, activo FROM tecnologias WHERE id = ?");
                         $stmt->bind_param("i", $id);
                         $stmt->execute();
@@ -137,7 +136,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id']) && isset($_POST[
                 }
             }
         } else {
-            // Name didn't change, just check if we need to update the image
+            // El nombre no cambió, solo verificamos si necesitamos actualizar la imagen
             if (isset($_FILES['foto']) && $_FILES['foto']['error'] == 0) {
                 if (!is_dir('img_tecnologias')) {
                     mkdir('img_tecnologias', 0777, true);
@@ -147,7 +146,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id']) && isset($_POST[
                 $filename = $nombre . '.' . strtolower($ext);
                 $target_path = 'img_tecnologias/' . $filename;
 
-                // Get the old image path
+                // Obtener la ruta de la imagen antigua
                 $stmt = $conn->prepare("SELECT foto FROM tecnologias WHERE id = ?");
                 $stmt->bind_param("i", $id);
                 $stmt->execute();
@@ -158,19 +157,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id']) && isset($_POST[
                 if (move_uploaded_file($_FILES['foto']['tmp_name'], $target_path)) {
                     $relative_path = 'img_tecnologias/' . $filename;
 
-                    // Delete the old image if it exists and is different
+                    //Eliminar la imagen antigua si existe y es diferente
                     if (!empty($old_image) && $old_image != $relative_path && file_exists($old_image)) {
                         unlink($old_image);
                     }
 
-                    // Update only the image
+                    //Actualizar solo la imagen
                     $stmt = $conn->prepare("UPDATE tecnologias SET foto = ? WHERE id = ?");
                     $stmt->bind_param("si", $relative_path, $id);
 
                     if ($stmt->execute()) {
                         $mensaje = "Imagen actualizada exitosamente.";
 
-                        // Reload the current technology
+                        // Recargar la tecnología actual
                         $stmt = $conn->prepare("SELECT id, nombre, foto, activo FROM tecnologias WHERE id = ?");
                         $stmt->bind_param("i", $id);
                         $stmt->execute();
@@ -214,10 +213,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id']) && isset($_POST[
                     <?php endif; ?>
 
                     <?php if (isset($tecnologias)): ?>
-                        <!-- List of technologies to select for editing -->
+                        <!-- Lista de tecnologías a seleccionar para editar -->
                         <div class="table-responsive">
                             <table class="table table-hover">
-                                <!-- In the table display, add a column for status -->
                                 <thead>
                                     <tr>
                                         <th>Nombre</th>
@@ -254,7 +252,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id']) && isset($_POST[
                         </div>
                         <a href="http://localhost:3000/php/panel_admin.php" class="btn btn-outline-primary">Volver al Panel</a>
                     <?php elseif (isset($tecnologia)): ?>
-                        <!-- Edit form for the selected technology -->
+                        <!-- Editar formulario para la tecnología seleccionada -->
                         <form method="post" enctype="multipart/form-data">
                             <input type="hidden" name="id" value="<?php echo $tecnologia['id']; ?>">
                             <input type="hidden" name="nombre_original" value="<?php echo htmlspecialchars($tecnologia['nombre']); ?>">

@@ -1,10 +1,9 @@
 <?php
 require_once 'conexion.php';
 
-// Variable to store messages
 $mensaje = '';
 
-// If we have an ID in the URL, load that technology
+// Si tenemos un ID en la URL, cargamos esa tecnología
 if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     $id = $_GET['id'];
     $stmt = $conn->prepare("SELECT id, nombre, foto, activo FROM tecnologias WHERE id = ?");
@@ -19,16 +18,16 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     }
     $stmt->close();
 } elseif (!isset($_POST['id'])) {
-    // If no ID is provided and not a POST request, show all technologies
+    // Si no se proporciona ninguna ID ni una solicitud POST, mostrar todas las tecnologías
     $result = $conn->query("SELECT id, nombre, foto, activo FROM tecnologias ORDER BY nombre");
     $tecnologias = $result->fetch_all(MYSQLI_ASSOC);
 }
 
-// Handle form submission for soft delete
+// Manejar el envío del formulario para eliminación temporal
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id'])) {
     $id = $_POST['id'];
     
-    // Update the activo status (0 = inactive, 1 = active)
+    // Actualizar el estado activo (0 = inactivo, 1 = activo)
     $new_status = ($_POST['action'] == 'activate') ? 1 : 0;
     
     $stmt = $conn->prepare("UPDATE tecnologias SET activo = ? WHERE id = ?");
@@ -38,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id'])) {
         $action_text = ($new_status == 1) ? "activada" : "desactivada";
         $mensaje = "Tecnología {$action_text} exitosamente.";
         
-        // Reload the technologies list
+        // Recargar la lista de tecnologías
         $result = $conn->query("SELECT id, nombre, foto, activo FROM tecnologias ORDER BY nombre");
         $tecnologias = $result->fetch_all(MYSQLI_ASSOC);
     } else {
@@ -69,7 +68,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id'])) {
                     <?php endif; ?>
 
                     <?php if (isset($tecnologias)): ?>
-                        <!-- List of technologies -->
+                        <!-- Lista de tecnologías -->
                         <div class="table-responsive">
                             <table class="table table-hover">
                                 <thead>
@@ -117,7 +116,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id'])) {
                         </div>
                         <a href="http://localhost:3000/php/panel_admin.php" class="btn btn-outline-primary">Volver al Panel</a>
                     <?php elseif (isset($tecnologia)): ?>
-                        <!-- Manage form for the selected technology -->
+                        <!-- Formulario de gestión para la tecnología seleccionada -->
                         <div class="card mb-4">
                             <div class="card-body">
                                 <h3 class="card-title"><?php echo htmlspecialchars($tecnologia['nombre']); ?></h3>

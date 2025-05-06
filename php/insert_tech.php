@@ -23,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['nombre'])) {
 
             if (move_uploaded_file($_FILES['foto']['tmp_name'], $target_path)) {
                 $relative_path = 'img_tecnologias/' . $filename;
-                // Add the activo field with default value 1 (active)
+                //Agrega el campo activo con valor por defecto 1 (activo)
                 $stmt = $conn->prepare("INSERT INTO tecnologias (nombre, foto, activo) VALUES (?, ?, 1)");
                 $stmt->bind_param("ss", $nombre, $relative_path);
 

@@ -12,7 +12,7 @@
   transition: all 0.3s ease;
 }
 
-/* Light theme styles (default) */
+/* Light theme */
 body.light-theme .form {
   border-color: #e0e0e0;
   background-color: #ffffff;
@@ -20,7 +20,7 @@ body.light-theme .form {
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 }
 
-/* Dark theme styles */
+/* Dark theme */
 body.dark-theme .form {
   border-color: #2a3a4a;
   background-color: #1e2d3c;
@@ -293,7 +293,6 @@ body.dark-theme .fancy:hover::before {
   width: 0;
 }
 
-/* Add focus styles for accessibility */
 .fancy:focus {
   outline: none;
 }
@@ -306,7 +305,7 @@ body.dark-theme .fancy:focus {
   box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.5);
 }
 
-/* Add some subtle animations */
+/* Animaciones */
 @keyframes formFadeIn {
   from {
     opacity: 0;
@@ -322,7 +321,7 @@ body.dark-theme .fancy:focus {
   animation: formFadeIn 0.5s ease forwards;
 }
 
-/* Improve placeholder contrast */
+
 body.light-theme ::placeholder {
   color: #999;
   opacity: 1;
@@ -333,7 +332,7 @@ body.dark-theme ::placeholder {
   opacity: 1;
 }
 
-/* Theme transition */
+
 body {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
@@ -360,7 +359,6 @@ button.disabled {
   }
 }
 
-/* Landscape orientation styles for mobile devices */
 @media (max-width: 767.98px) and (orientation: landscape) {
   .form {
     width: 80%;
@@ -368,59 +366,49 @@ button.disabled {
     margin: 0 auto;
   }
 
-  /* Make the form more compact in landscape */
   .form label {
     margin-bottom: 0.5rem;
   }
 
-  /* Adjust the flex layout for the name fields to be side by side */
   .form .flex {
     display: flex;
     gap: 10px;
     margin-bottom: 0.5rem;
   }
 
-  /* Reduce the height of the textarea */
   .form .input01 {
     min-height: 60px;
   }
 
-  /* Make the button smaller */
   .form .fancy {
     transform: scale(0.9);
     margin-top: 0.5rem;
   }
 
-  /* Adjust spacing in the footer for landscape */
   .custom-footer {
     padding-bottom: 1rem;
   }
 }
 
-/* Additional optimization for very short landscape heights */
 @media (max-height: 450px) and (orientation: landscape) {
   .form {
     width: 90%;
     max-width: 600px;
   }
 
-  /* Make the form even more compact */
   .form label {
     margin-bottom: 0.25rem;
   }
 
-  /* Further reduce the height of the textarea */
   .form .input01 {
     min-height: 40px;
   }
 
-  /* Adjust the contact section heading */
   #contacto h2 {
     margin-bottom: 0.5rem !important;
     font-size: 1.5rem;
   }
 
-  /* Reduce padding in the contact section */
   #contacto section.py-5 {
     padding-top: 1rem !important;
     padding-bottom: 1rem !important;

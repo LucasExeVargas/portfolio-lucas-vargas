@@ -6,12 +6,12 @@ body {
   font-size: 2em;
 }
 
-/* Tema claro (activo por defecto) */
+/* Light theme */
 body.light-theme {
   background: linear-gradient(90deg, #9ea4ad, #dad8d8, #9ea4ad);
 }
 
-/* Tema oscuro */
+/* Dark theme */
 body.dark-theme {
   background: linear-gradient(90deg, #1c2c3b, #364050, #1c2c3b);
 }
@@ -91,14 +91,13 @@ header {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Hide default HTML checkbox */
 .switch input {
   opacity: 0;
   width: 0;
   height: 0;
 }
 
-/* The slider */
+
 .slider {
   position: absolute;
   cursor: pointer;
@@ -184,8 +183,8 @@ header {
   margin: 0;
 }
 .carousel-item img {
-  max-width: 40%; /* Ajusta el tamaño a tu gusto */
-  margin: 0 auto 9rem auto; /* Centra la imagen horizontalmente */
+  max-width: 40%;
+  margin: 0 auto 9rem auto;
 }
 
 .custom-animated-btn.button {
@@ -342,12 +341,12 @@ header {
 }
 
 .card-light:hover {
-  transform: translate(-6px, -6px); /* Corrected the property here */
-  box-shadow: 16px 16px 0 #000000; /* Optional: added an effect on hover */
+  transform: translate(-6px, -6px); 
+  box-shadow: 16px 16px 0 #000000; 
 }
 .card-dark:hover {
-  transform: translate(-6px, -6px); /* Corrected the property here */
-  box-shadow: 16px 16px 0 #000000; /* Optional: added an effect on hover */
+  transform: translate(-6px, -6px); 
+  box-shadow: 16px 16px 0 #000000; 
 }
 .title-form {
   font: 2rem;
@@ -367,8 +366,8 @@ header {
 }
 .carousel-image {
   width: auto;
-  height: 400px; /* Puedes ajustar la altura que prefieras */
-  object-fit: cover; /* Corta la imagen para que llene el espacio sin deformarla */
+  height: 400px; 
+  object-fit: cover;
 }
 
 .carousel-control-prev-icon,

@@ -1,10 +1,10 @@
 <?php
 require_once 'conexion.php';
 
-// Variable to store messages
+// Variable para almacenar mensajes
 $mensaje = '';
 
-// If we have an ID in the URL, load that project
+// Si tenemos un ID en la URL, cargamos ese proyecto
 if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     $id = $_GET['id'];
     $stmt = $conn->prepare("SELECT id, nombre, foto, url, activo FROM proyectos WHERE id = ?");
@@ -15,7 +15,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     if ($result->num_rows > 0) {
         $proyecto = $result->fetch_assoc();
 
-        // Get technologies for this project
+        // Obtener tecnologías para este proyecto
         $techQuery = "SELECT t.nombre FROM tecnologias t 
                       JOIN proyecto_tecnologia pt ON t.id = pt.tecnologia_id 
                       WHERE pt.proyecto_id = ?";
@@ -33,16 +33,16 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     }
     $stmt->close();
 } elseif (!isset($_POST['id'])) {
-    // If no ID is provided and not a POST request, show all projects
+    // Si no se proporciona ninguna ID ni una solicitud POST, mostrar todos los proyectos
     $result = $conn->query("SELECT id, nombre, foto, activo FROM proyectos ORDER BY nombre");
     $proyectos = $result->fetch_all(MYSQLI_ASSOC);
 }
 
-// Handle form submission for soft delete
+// Manejar el envío del formulario para eliminación temporal
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id'])) {
     $id = $_POST['id'];
 
-    // Update the activo status (0 = inactive, 1 = active)
+    // Actualizar el estado activo (0 = inactivo, 1 = activo)
     $new_status = ($_POST['action'] == 'activate') ? 1 : 0;
 
     $stmt = $conn->prepare("UPDATE proyectos SET activo = ? WHERE id = ?");
@@ -52,7 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id'])) {
         $action_text = ($new_status == 1) ? "activado" : "desactivado";
         $mensaje = "Proyecto {$action_text} exitosamente.";
 
-        // Reload the projects list
+        // Recargar la lista de proyectos
         $result = $conn->query("SELECT id, nombre, foto, activo FROM proyectos ORDER BY nombre");
         $proyectos = $result->fetch_all(MYSQLI_ASSOC);
     } else {
@@ -83,7 +83,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id'])) {
                     <?php endif; ?>
 
                     <?php if (isset($proyectos)): ?>
-                        <!-- List of projects -->
+                        <!-- Lista de proyectos -->
                         <div class="table-responsive">
                             <table class="table table-hover">
                                 <thead>
@@ -131,7 +131,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id'])) {
                         </div>
                         <a href="http://localhost:3000/php/panel_admin.php" class="btn btn-outline-primary">Volver al Panel</a>
                     <?php elseif (isset($proyecto)): ?>
-                        <!-- Manage form for the selected project -->
+                        <!-- Administrar formulario para el proyecto seleccionado -->
                         <div class="card mb-4">
                             <div class="card-body">
                                 <h3 class="card-title"><?php echo htmlspecialchars($proyecto['nombre']); ?></h3>
