@@ -16,3 +16,10 @@
         margin: 0.5rem; /* Espaciado uniforme en íconos */
     }
 }
+@media (max-width: 767.98px) {
+    .form {
+      width: 90%;
+      margin: 0 auto;
+    }
+  }
+  

@@ -1,0 +1,148 @@
+/* Estilos para el cartel de agradecimiento */
+.cartel-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+}
+
+.cartel-overlay.show {
+  display: flex;
+}
+
+.cartel-container {
+  width: 90%;
+  max-width: 500px;
+  border-radius: 10px;
+  overflow: hidden;
+  animation: cartelFadeIn 0.3s ease forwards;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Estilos para tema claro */
+body.light-theme .cartel-container {
+  background-color: #ffffff;
+  border: 2px solid #dee2e6;
+}
+
+body.light-theme .cartel-header {
+  background-color: #507a86;
+  color: white;
+}
+
+body.light-theme .cartel-body {
+  color: #283b51;
+}
+
+body.light-theme .cartel-button {
+  background-color: #507a86;
+  color: white;
+  border: none;
+}
+
+body.light-theme .cartel-button:hover {
+  background-color: #3a5c66;
+}
+
+/* Estilos para tema oscuro */
+body.dark-theme .cartel-container {
+  background-color: #1e2d3c;
+  border: 2px solid #3a4a5a;
+}
+
+body.dark-theme .cartel-header {
+  background-color: #3a7bc8;
+  color: white;
+}
+
+body.dark-theme .cartel-body {
+  color: #e4e6eb;
+}
+
+body.dark-theme .cartel-button {
+  background-color: #3a7bc8;
+  color: white;
+  border: none;
+}
+
+body.dark-theme .cartel-button:hover {
+  background-color: #2a5a9a;
+}
+
+/* Estilos comunes */
+.cartel-header {
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cartel-header h3 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.cartel-close {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: white;
+  padding: 0;
+  line-height: 1;
+}
+
+.cartel-body {
+  padding: 20px;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.cartel-footer {
+  padding: 15px 20px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.cartel-button {
+  padding: 8px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+}
+
+/* Animación para el cartel */
+@keyframes cartelFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive */
+@media (max-width: 576px) {
+  .cartel-container {
+    width: 95%;
+  }
+
+  .cartel-header h3 {
+    font-size: 1.1rem;
+  }
+
+  .cartel-body {
+    padding: 15px;
+    font-size: 0.9rem;
+  }
+}

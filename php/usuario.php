@@ -35,6 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['submit'])) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="/assets/styles/form.css" />
   <title>Formulario con PHP + EmailJS</title>
+  <link rel="stylesheet" href="/assets/styles/cartel.css">
 </head>
 
 <body>
@@ -70,11 +71,47 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['submit'])) {
     </button>
   </form>
 
+  <!-- Cartel de agradecimiento -->
+  <div id="agradecimiento-cartel" class="cartel-overlay">
+    <div class="cartel-container">
+      <div class="cartel-header">
+        <h3>¡Gracias por contactarme!</h3>
+        <button class="cartel-close" id="cartel-close">&times;</button>
+      </div>
+      <div class="cartel-body">
+        <p>He recibido tu mensaje correctamente.</p>
+        <p>Me pondré en contacto contigo lo antes posible.</p>
+      </div>
+      <div class="cartel-footer">
+        <button class="cartel-button" id="cartel-ok">Aceptar</button>
+      </div>
+    </div>
+  </div>
+
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <script>
     emailjs.init('4pVh9yp4Fi30cNVsA');
 
     const form = document.getElementById('contact-form');
+    const cartel = document.getElementById('agradecimiento-cartel');
+    const closeBtn = document.getElementById('cartel-close');
+    const okBtn = document.getElementById('cartel-ok');
+
+    // Función para cerrar el cartel
+    function closeCartel() {
+      cartel.classList.remove("show");
+    }
+
+    // Eventos para cerrar el cartel
+    closeBtn.addEventListener("click", closeCartel);
+    okBtn.addEventListener("click", closeCartel);
+    
+    // También cerrar el cartel si se hace clic fuera de él
+    window.addEventListener("click", function(event) {
+      if (event.target === cartel) {
+        closeCartel();
+      }
+    });
 
     form.addEventListener('submit', function(e) {
       e.preventDefault();
@@ -87,13 +124,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['submit'])) {
       submitButton.disabled = true;
       submitButton.classList.add('disabled');
       originalText.textContent = 'Procesando...';
-
-      setTimeout(() => {
-        // Restaurar botón
-        submitButton.disabled = false;
-        submitButton.classList.remove('disabled');
-        originalText.textContent = originalContent;
-      }, 6000);
 
       const formData = new FormData(form);
       formData.append('submit', '1');
@@ -108,16 +138,32 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['submit'])) {
           if (res.includes("Usuario agregado correctamente")) {
             emailjs.sendForm('service_k1ewwe6', 'template_yf8abgr', form)
               .then(() => {
+                // Mostrar el cartel de agradecimiento
+                cartel.classList.add("show");
+                
+                // Restaurar el botón y resetear el formulario
+                submitButton.disabled = false;
+                submitButton.classList.remove('disabled');
+                originalText.textContent = originalContent;
                 form.reset();
               }, (error) => {
                 console.error('EmailJS error:', error);
+                submitButton.disabled = false;
+                submitButton.classList.remove('disabled');
+                originalText.textContent = originalContent;
               });
           } else {
             console.log(res);
+            submitButton.disabled = false;
+            submitButton.classList.remove('disabled');
+            originalText.textContent = originalContent;
           }
         })
         .catch(error => {
           console.error('Error al enviar a PHP:', error);
+          submitButton.disabled = false;
+          submitButton.classList.remove('disabled');
+          originalText.textContent = originalContent;
         });
     });
   </script>

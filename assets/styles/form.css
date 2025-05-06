@@ -353,4 +353,76 @@ button.disabled {
   pointer-events: none;
   cursor: not-allowed;
 }
-/* Remove the old dark theme styles that used body.dark-theme selectors */
+@media (max-width: 767.98px) {
+  .form {
+    width: 90%;
+    margin: 0 auto;
+  }
+}
+
+/* Landscape orientation styles for mobile devices */
+@media (max-width: 767.98px) and (orientation: landscape) {
+  .form {
+    width: 80%;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  /* Make the form more compact in landscape */
+  .form label {
+    margin-bottom: 0.5rem;
+  }
+
+  /* Adjust the flex layout for the name fields to be side by side */
+  .form .flex {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 0.5rem;
+  }
+
+  /* Reduce the height of the textarea */
+  .form .input01 {
+    min-height: 60px;
+  }
+
+  /* Make the button smaller */
+  .form .fancy {
+    transform: scale(0.9);
+    margin-top: 0.5rem;
+  }
+
+  /* Adjust spacing in the footer for landscape */
+  .custom-footer {
+    padding-bottom: 1rem;
+  }
+}
+
+/* Additional optimization for very short landscape heights */
+@media (max-height: 450px) and (orientation: landscape) {
+  .form {
+    width: 90%;
+    max-width: 600px;
+  }
+
+  /* Make the form even more compact */
+  .form label {
+    margin-bottom: 0.25rem;
+  }
+
+  /* Further reduce the height of the textarea */
+  .form .input01 {
+    min-height: 40px;
+  }
+
+  /* Adjust the contact section heading */
+  #contacto h2 {
+    margin-bottom: 0.5rem !important;
+    font-size: 1.5rem;
+  }
+
+  /* Reduce padding in the contact section */
+  #contacto section.py-5 {
+    padding-top: 1rem !important;
+    padding-bottom: 1rem !important;
+  }
+}
